@@ -1,0 +1,10 @@
+release/networkmanager.o
+release/enemy.o
+release/main.o
+release/mainwindow.o
+release/mapfeature.o
+release/playership.o
+release/projectile.o
+release/shipaugment.o
+release/moc_networkmanager.o
+release/moc_mainwindow.o
