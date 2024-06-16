@@ -55,6 +55,8 @@ private slots:
     void showJoinMenu();
 
     void startGame();
+    void startMultiplayerGame();
+
     void changeBackgroundMusic(const QString &filePath);
     void playButtonClickSound();
     void removeBackgroundImage();
@@ -75,6 +77,8 @@ private:
     void setupJoinMenu();
     void initializeGame();
     void initializeApplication();
+    void initializeMultiplayerApplication();
+
     QString getLocalHostAddress();
     void processJoinRequest();
     void joinRequest(const QString &hostAddress);

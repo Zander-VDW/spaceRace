@@ -2,12 +2,18 @@
 #include <QPainter>
 #include <cstdlib>
 #include <ctime>
+#include <enemy.h>
+#include <QString>
+#include <iostream>
+QString mapLog;
 
-mapFeature::mapFeature(const QRectF &bounds)
+bool isHost;
+mapFeature::mapFeature(const QRectF &bounds, bool host)
     : sceneBounds(bounds) // Initialize scene bounds
 {
     srand(static_cast<unsigned>(time(0)));
     runCourse();
+    isHost = host;
 }
 
 void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -33,6 +39,7 @@ QRectF mapFeature::boundingRect() const {
 
 void mapFeature::runCourse()
 {
+    if(isHost==true){
     QPointF penPoint = QPointF(-150, -150);
     int length = 300;
     QSize size = QSize(300, 300);
@@ -91,11 +98,14 @@ void mapFeature::runCourse()
         if(bounds.contains(newPoint)) {
             penPoint = newPoint;
             rectangles.append(QRectF(penPoint, size));
+            mapLog+=direction;
+          //  std::cout << mapLog << std::endl;
         }
         else {
             // Optionally change direction or handle edge case
             // For now, just skip this move
             continue;
         }
+    }
     }
 }

@@ -9,7 +9,7 @@
 #include <QObject>
 
 projectile::projectile(QPointF startPos, qreal angle)
-    : pos(startPos), angle(angle), speed(10) {
+    : pos(startPos), angle(angle), speed(20) {
     setPos(pos), setZValue(0); // Ensure this aligns the projectile's position properly
 
     // Initialize timer with a 1 second delay (1000 milliseconds)
