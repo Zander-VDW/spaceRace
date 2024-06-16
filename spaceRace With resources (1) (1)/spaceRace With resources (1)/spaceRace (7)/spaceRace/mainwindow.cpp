@@ -33,7 +33,7 @@ void MainWindow::MainMenu(){
 void MainWindow::initializeApplication()
 {
 
-    QImage asteroidTiles = QImage(":/Menus/starryBackground.jpg");
+    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/customAsteroidBack.png");
 
     if (asteroidTiles.isNull()) {
         std::cout << "Failed to load background image file";
@@ -41,7 +41,6 @@ void MainWindow::initializeApplication()
 
     QBrush backgroundBrush(asteroidTiles);
     scene.setBackgroundBrush(backgroundBrush);
-
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
