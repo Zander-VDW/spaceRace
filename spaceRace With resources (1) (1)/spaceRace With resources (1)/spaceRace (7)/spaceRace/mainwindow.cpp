@@ -57,6 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     showMainMenu();
     //showGameover();
+    //startGame();
 
     changeBackgroundMusic("qrc:/menus/background.mp3");
     buttonClickSound->setSource(QUrl(":/menus/buttonclick.mp3"));
@@ -535,8 +536,15 @@ void MainWindow::removeBackgroundImage()
 
 void MainWindow::initializeApplication()
 {
+    view = new QGraphicsView(this);
+    view->setParent(this);
 
-    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/customAsteroidBack.png");
+
+    player1Ship = new playerShip();
+    enemy1 = new enemy();
+
+
+    QImage asteroidTiles = QImage(":/mapElements/customAsteroidBack.png");
 
     if (asteroidTiles.isNull()) {
         qDebug() << "Failed to load background image file";
@@ -625,4 +633,8 @@ void MainWindow::initializeApplication()
     timer.start();
 
     view->show();
+
+    /*setupGameover(int currentscore, "w"or"l")
+     * showGameoveer();
+*/
 }

@@ -13,7 +13,7 @@ shipAugment::shipAugment()
     setType(type);
     this->isDraggable = true;
     setZValue(1); // Default zValue, you can change this as needed
-    coolDown=0;
+    coolDown=1;
     this->activatable=true;
     this->speedBoost=1;
     this->burnTime=5000;

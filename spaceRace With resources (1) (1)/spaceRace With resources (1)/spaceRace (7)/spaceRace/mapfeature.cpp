@@ -12,7 +12,7 @@ mapFeature::mapFeature(const QRectF &bounds)
 
 void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     painter->setPen(Qt::NoPen); // Remove the border around the rectangles
-    painter->setBrush(Qt::red);
+    painter->setBrush(Qt::cyan);
     setZValue(0);
     painter->save();
 

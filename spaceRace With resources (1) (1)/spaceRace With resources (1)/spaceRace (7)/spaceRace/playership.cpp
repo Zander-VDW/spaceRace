@@ -45,26 +45,26 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1
 
     coolDownBar1 = new ProgressBar(this);
     coolDownBar1->setColor(Qt::red);
-    coolDownBar1->setMaxValue(2500);
-    coolDownBar1->setValue(1000);
+    coolDownBar1->setMaxValue(3000);
+    coolDownBar1->setValue(3000);
     coolDownBar1->setPos(-50,50);
 
     coolDownBar2 = new ProgressBar(this);
     coolDownBar2->setColor(Qt::red);
-    coolDownBar2->setMaxValue(2500);
-    coolDownBar2->setValue(1000);
+    coolDownBar2->setMaxValue(3000);
+    coolDownBar2->setValue(3000);
     coolDownBar2->setPos(-50,50);
 
     coolDownBar3 = new ProgressBar(this);
     coolDownBar3->setColor(Qt::red);
-    coolDownBar3->setMaxValue(2500);
-    coolDownBar3->setValue(1000);
+    coolDownBar3->setMaxValue(3000);
+    coolDownBar3->setValue(3000);
     coolDownBar3->setPos(-50,50);
 
     coolDownBar4 = new ProgressBar(this);
     coolDownBar4->setColor(Qt::red);
-    coolDownBar4->setMaxValue(2500);
-    coolDownBar4->setValue(1000);
+    coolDownBar4->setMaxValue(3000);
+    coolDownBar4->setValue(3000);
     coolDownBar4->setPos(-50,50);
 }
 
@@ -542,10 +542,15 @@ void playerShip::moveFunc()
         pos.setY(qBound(0.0, pos.y(), sceneHeight));*/
     healthBar->setPos(this->getPosition().x()-50, this->getPosition().y()+100);
 
-    coolDownBar1->setPos(this->getPosition().x()+100, this->getPosition().y()-120);
-    coolDownBar2->setPos(this->getPosition().x()+100, this->getPosition().y()-100);
-    coolDownBar3->setPos(this->getPosition().x()-100, this->getPosition().y()+120);
-    coolDownBar4->setPos(this->getPosition().x()+100, this->getPosition().y()-100);
+    coolDownBar1->setPos(this->getPosition().x()-100, this->getPosition().y()-110);
+    coolDownBar2->setPos(this->getPosition().x()-100, this->getPosition().y()-125);
+    coolDownBar3->setPos(this->getPosition().x()-100, this->getPosition().y()-140);
+    coolDownBar4->setPos(this->getPosition().x()-100, this->getPosition().y()-155);
+
+    coolDownBar1->setMaxValue(2500);
+    coolDownBar2->setMaxValue(2500);
+    coolDownBar3->setMaxValue(2500);
+    coolDownBar4->setMaxValue(2500);
 
 
     coolDownBar1->setValue(slot1DelayTimer.remainingTime());

@@ -234,6 +234,7 @@ Makefile: ../spaceRace/spaceRace.pro C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/yacc.prf \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/lex.prf \
 		../spaceRace/spaceRace.pro \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Multimedia.prl \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Widgets.prl \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Gui.prl \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Network.prl \
@@ -411,6 +412,7 @@ C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/exceptions.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/yacc.prf:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/features/lex.prf:
 ../spaceRace/spaceRace.pro:
+C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Multimedia.prl:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Widgets.prl:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Gui.prl:
 C:/Qt/Qt5.12.12/5.12.12/mingw73_64/lib/Qt5Network.prl:
