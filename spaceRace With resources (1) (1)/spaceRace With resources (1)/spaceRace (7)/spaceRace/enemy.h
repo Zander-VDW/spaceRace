@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "shipAugment.h"
 #include "projectile.h"
+#include "progressbar.h"
 
 class enemy : public QObject, public QGraphicsItem {
 
@@ -38,6 +39,8 @@ private:
      qreal movementDirection;
      qreal angle;
      int health;
+
+     ProgressBar* healthBar;
 };
 
 #endif // ENEMY_H
