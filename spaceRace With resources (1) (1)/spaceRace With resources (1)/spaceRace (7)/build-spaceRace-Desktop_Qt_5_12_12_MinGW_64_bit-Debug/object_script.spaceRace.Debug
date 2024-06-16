@@ -1,0 +1,10 @@
+debug/networkmanager.o
+debug/enemy.o
+debug/main.o
+debug/mainwindow.o
+debug/mapfeature.o
+debug/playership.o
+debug/projectile.o
+debug/shipaugment.o
+debug/moc_networkmanager.o
+debug/moc_mainwindow.o
