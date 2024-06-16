@@ -14,7 +14,7 @@
 
     void projectile::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
         painter->setBrush(Qt::red);
-        painter->setPen(Qt::NoPen);
+        painter->setPen(Qt::black);
         painter->drawEllipse(boundingRect());
     }
 
