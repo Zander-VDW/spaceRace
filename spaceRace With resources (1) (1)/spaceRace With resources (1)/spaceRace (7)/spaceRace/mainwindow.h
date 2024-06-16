@@ -34,7 +34,7 @@
 struct ScoreEntry {
     QString name;
     int score;
-    QDateTime dateTime;
+    QDateTime date;
 };
 
 class MainWindow : public QMainWindow
@@ -44,7 +44,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void setupGameover(int currentScore, const QString &defaultName);
+    int buttonWidth;
 
 
 private slots:
@@ -52,7 +53,7 @@ private slots:
     void showMultiplayerMenu();
     void showHostMenu();
     void showJoinMenu();
-    void showGameover();
+
     void startGame();
     void changeBackgroundMusic(const QString &filePath);
     void playButtonClickSound();
@@ -69,17 +70,21 @@ private slots:
 
 
 
+
+
 private:
+    void showGameover();
     void setupMainMenu();
     void setupMultiplayerMenu();
     void setupHostMenu();
     void setupJoinMenu();
     void initializeGame();
+    void initializeApplication();
     QString getLocalHostAddress();
     void processJoinRequest();
     void joinRequest(const QString &hostAddress);
     void setupGameover(int currentScore);
-
+    void processScoreEntry(QLineEdit *nameInput, int currentScore, QVector<ScoreEntry> &scores, QLabel *top3ScoresLabel);
     QVector<ScoreEntry> readScoresFromFile(const QString &filePath);
     void saveScoresToFile(const QString &filePath, const QVector<ScoreEntry> &scores);
     void updateTop3ScoresLabel(const QVector<ScoreEntry> &scores, QLabel *top3ScoresLabel);

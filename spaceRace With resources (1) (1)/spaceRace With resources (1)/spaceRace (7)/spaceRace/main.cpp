@@ -20,6 +20,9 @@ int main(int argc, char *argv[]) {
 
     //QFont rogFont(fontFamily);
     //app.setFont(rogFont);
+    QFont font = app.font();
+    font.setPointSize(25); // Set the font size
+    app.setFont(font);
 
     MainWindow w;
 
