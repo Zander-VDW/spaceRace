@@ -22,6 +22,8 @@ public:
     void cooldownTimerEvent();
     void updateShootingDirection(qreal angle);
     bool isTouchingPath();
+    void takeDamage(int damage);
+    void die();
 
 
 
@@ -35,6 +37,7 @@ private:
     QPointF lastPosition;
      qreal movementDirection;
      qreal angle;
+     int health;
 };
 
 #endif // ENEMY_H
