@@ -14,7 +14,6 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mapfeature.cpp \
-    networkmanager.cpp \
     playership.cpp \
     projectile.cpp \
     shipaugment.cpp
@@ -24,7 +23,6 @@ HEADERS += \
     enemy.h \
     mainwindow.h \
     mapfeature.h \
-    networkmanager.h \
     playerShip.h \
     projectile.h \
     shipAugment.h
