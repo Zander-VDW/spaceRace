@@ -8,10 +8,18 @@
 #include <mapfeature.h>
 #include <enemy.h>
 #include <iostream>
+#include <QFontDatabase>
 #include <QScreen>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+
+    //int fontId = QFontDatabase::addApplicationFont(":/menus/ROGFont.ttf");
+    //QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
+
+
+    //QFont rogFont(fontFamily);
+    //app.setFont(rogFont);
 
     MainWindow w;
 
