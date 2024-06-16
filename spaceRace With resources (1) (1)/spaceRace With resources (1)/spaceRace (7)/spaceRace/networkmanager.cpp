@@ -4,9 +4,9 @@
 
 NetworkManager::NetworkManager(QObject *parent)
     : QObject(parent),
+      connected(true),
       udpSocket(new QUdpSocket(this)),
       broadcastTimer(new QTimer(this)),
-      connected(false),
       recipientAddress("")
 {
     bool success = udpSocket->bind(QHostAddress::Any, 12345, QUdpSocket::ShareAddress);
@@ -35,6 +35,12 @@ void NetworkManager::sendHandshakeRequest(const QString &hostAddress)
     QByteArray data = "2HANDSHAKE_REQUEST";
     qDebug() << "Sending handshake request to" << hostAddress << ":" << data;
     udpSocket->writeDatagram(data, QHostAddress(hostAddress), 12345);
+}
+
+void NetworkManager::hostGame()
+{
+    connected = false;
+    qDebug() << "Game hosted. Network disconnected.";
 }
 
 void NetworkManager::sendHandshakeResponse(const QString &clientAddress, bool accepted, const QString &codeword)

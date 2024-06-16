@@ -19,6 +19,7 @@ public:
     void sendHandshakeResponse(const QString &clientAddress, bool accepted, const QString &codeword);
     void broadcastGameAvailability();
     void disconnect();
+    void hostGame();
 
 signals:
     void handshakeRequestReceived(const QString &senderAddress);
@@ -34,8 +35,9 @@ private:
     QUdpSocket *udpSocket;
     QTimer *broadcastTimer;
     QStringList availableGames;
-    bool connected;
     QString recipientAddress;
+    bool connected;
+
 };
 
 #endif // NETWORKMANAGER_H
