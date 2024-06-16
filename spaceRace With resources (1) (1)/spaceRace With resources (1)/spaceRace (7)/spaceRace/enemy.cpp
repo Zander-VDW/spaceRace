@@ -4,7 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <iostream>
-
+//ENEMY AI HANDLER
 enemy::enemy()
     : speed(1), angle(0)
 {
