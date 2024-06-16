@@ -142,11 +142,11 @@ void shipAugment::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     QImage thrusterActive = QImage("C:/Users/Dell10th-Gen/Desktop/spaceRaceREII313/thruster_Active.jpg");
     QImage thrusterIdle = QImage("C:/Users/Dell10th-Gen/Desktop/spaceRaceREII313/thruster_Idle.jpg");*/
 
-    QImage blasterActive = QImage(":/Augments/blaster_active.jpg");
-       // QImage blasterIdle = QImage("C:/Users/Dell10th-Gen/Documents/GITHUB REPOS/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRaceREII313/Augments/spaceGun-modified.png");
+    QImage blasterActive = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Active.png");
+        QImage blasterIdle = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Idle.png");
 
-        QImage thrusterActive = QImage(":/Augments/thruster_Active.jpg");
-        QImage thrusterIdle = QImage(":/Augments/thruster_Idle.jpg");
+        QImage thrusterActive = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active.jpg");
+        QImage thrusterIdle = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.jpg");
 
 
 

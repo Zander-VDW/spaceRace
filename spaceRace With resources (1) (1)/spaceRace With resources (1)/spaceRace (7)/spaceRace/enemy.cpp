@@ -230,7 +230,7 @@ bool enemy::isTouchingPath() {
     QColor pixelColor = image.pixelColor(viewPos);
 
     // Adjust the path color condition based on your game's path color
-    bool touching = (pixelColor == QColor(0, 0, 128)); // Check against path color
+    bool touching = (pixelColor != QColor(0, 0, 0)); // Check against path color
 
     std::cout << "Pixel Color: " << pixelColor.red() << ", " << pixelColor.green() << ", " << pixelColor.blue() << std::endl;
     std::cout << "Is touching path: " << touching << std::endl;

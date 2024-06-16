@@ -510,7 +510,7 @@ bool playerShip::isTouchingPath() {
 
   // Check if the pixel color matches the path color (130, 135, 144)
   //std::cout << "Is touching Blue: " << pixelColor.red() << " " << pixelColor.green() << " " << pixelColor.blue() << std::endl;
-  return pixelColor == QColor(0, 0, 128);
+  return pixelColor != QColor(0, 0, 0);
 }
 
 
