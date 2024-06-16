@@ -4,6 +4,7 @@ release/main.o
 release/mainwindow.o
 release/mapfeature.o
 release/playership.o
+release/progressbar.o
 release/projectile.o
 release/shipaugment.o
 release/moc_networkmanager.o

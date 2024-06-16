@@ -15,6 +15,13 @@ enemy::enemy()
 
     shootingTimer.start(500); // Adjust shooting interval as needed
 
+    // Initialize progress bars
+        healthBar = new ProgressBar(this);
+        healthBar->setColor(Qt::green);
+        healthBar->setMaxValue(1000);
+        healthBar->setValue(health);
+        healthBar->setPos(-50,50);
+
     // Initialize augment properties (assuming augment is initialized appropriately)
     augment.setType("Blaster"); // Example type
     augment.setActive(true);    // Example active state
@@ -37,11 +44,8 @@ void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
 
     painter->translate(QPointF(0, 0));
     painter->rotate(angle);
-    painter->save();
 
-    if(painter->setPen(Qt::green);){health>750}
-    if(health>500){painter->setPen(Qt::yellow);} else {painter->setPen(Qt::red);}
-    if(alive!=true){painter->setPen(Qt::NoBrush);}
+    painter->save();
 
     painter->setBrush(Qt::NoBrush);
     painter->drawEllipse(boundingRect()); // Draw a simple blue ellipse centered at (0, 0)
@@ -176,9 +180,13 @@ void enemy::updatePosition(QPointF playerPos)
 }
 
 void enemy::takeDamage(int damage) {
+
     health -= damage;
+    healthBar->setValue(health);
+
     if (health <= 0) {
         die();
+        healthBar->setValue(0);
     }
 }
 

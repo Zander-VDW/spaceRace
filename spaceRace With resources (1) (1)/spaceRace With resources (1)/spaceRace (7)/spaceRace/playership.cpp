@@ -60,11 +60,27 @@ void playerShip::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawRect(QRectF(-30, -30, 60, 60)); // Main body of the ship
 
     // Draw slots
-    painter->drawRect(QRectF(-75, -90, 60, 60));
-    painter->drawRect(QRectF(-75, 30, 60, 60));
-    painter->drawRect(QRectF(15, -90, 60, 60));
-    painter->drawRect(QRectF(15, 30, 60, 60));
+    QRectF rect1(-75, -90, 60, 60);
+        QRectF rect2(-75, 30, 60, 60);
+        QRectF rect3(15, -90, 60, 60);
+        QRectF rect4(15, 30, 60, 60);
 
+        painter->drawRect(rect1);
+        painter->drawRect(rect2);
+        painter->drawRect(rect3);
+        painter->drawRect(rect4);
+
+        QFont font;
+        font.setBold(true);
+        font.setPointSize(20);
+        painter->setFont(font);
+        painter->setPen(Qt::black); // Set the color for the text
+
+        // Draw text inside each rectangle, centered
+        painter->drawText(rect1, Qt::AlignCenter, "1");
+        painter->drawText(rect2, Qt::AlignCenter, "2");
+        painter->drawText(rect3, Qt::AlignCenter, "3");
+        painter->drawText(rect4, Qt::AlignCenter, "4");
     /*case 1:
             return  // Adjusted for new orientation
         case 2:

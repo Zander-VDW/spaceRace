@@ -16,6 +16,7 @@ SOURCES += \
     mainwindow.cpp \
     mapfeature.cpp \
     playership.cpp \
+    progressbar.cpp \
     projectile.cpp \
     shipaugment.cpp
 
@@ -25,6 +26,7 @@ HEADERS += \
     mainwindow.h \
     mapfeature.h \
     playerShip.h \
+    progressbar.h \
     projectile.h \
     shipAugment.h
 
