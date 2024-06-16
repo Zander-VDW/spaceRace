@@ -64,7 +64,8 @@ void shipAugment::setType(QString value)
 
             coolDown=1;
             this->burnTime=10000;
-
+            damage=10;
+            fireRate=300;
 
     }
 
@@ -142,11 +143,16 @@ void shipAugment::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
     QImage thrusterActive = QImage("C:/Users/Dell10th-Gen/Desktop/spaceRaceREII313/thruster_Active.jpg");
     QImage thrusterIdle = QImage("C:/Users/Dell10th-Gen/Desktop/spaceRaceREII313/thruster_Idle.jpg");*/
 
-    QImage blasterActive = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Active.png");
-        QImage blasterIdle = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Idle.png");
 
-        QImage thrusterActive = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active.jpg");
-        QImage thrusterIdle = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.jpg");
+
+        // Load images for blaster
+        blasterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Active.png");
+        blasterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Idle.png");
+
+        // Load images for thruster
+        thrusterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active.jpg");
+        thrusterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.jpg");
+
 
 
 

@@ -12,6 +12,8 @@
 #include <QMimeData>
 #include <QTimer>
 
+#include <progressbar.h>
+
 class shipAugment : public QGraphicsItem // Inherit from QGraphicsItem
 {
 public:
@@ -41,6 +43,9 @@ public:
 
     int speedBoost;
 
+    double damage;
+    double fireRate;
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
@@ -50,8 +55,7 @@ private:
     QString type;
     QString blasterType;
     int MkWhat;
-    double damage;
-    double fireRate;
+
     double damageReduction;
 
     bool active;
@@ -61,6 +65,13 @@ private:
 
     int assignedSlot;
     bool isDraggable =true;
+
+    QImage blasterActive;
+        QImage blasterIdle;
+        QImage thrusterActive;
+        QImage thrusterIdle;
+
+
 
 };
 

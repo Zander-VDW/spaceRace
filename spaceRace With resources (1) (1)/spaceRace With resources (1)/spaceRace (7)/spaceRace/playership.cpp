@@ -13,9 +13,10 @@
 #include "playerShip.h"
 #include "shipAugment.h"
 #include "projectile.h"
+#include <progressbar.h>
 
 
-playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3) {
+playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1000), maxHealth(1000), isAlive(true) {
     // Initialize ship properties here if needed
     //this->highlightedSlot = 1;
 
@@ -34,6 +35,37 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3) {
     connect(&slot2DelayTimer, &QTimer::timeout, this, &playerShip::slotTwoCooldown);
     connect(&slot3DelayTimer, &QTimer::timeout, this, &playerShip::slotThreeCooldown);
     connect(&slot4DelayTimer, &QTimer::timeout, this, &playerShip::slotFourCooldown);
+
+    healthBar = new ProgressBar(this);
+    healthBar->setColor(Qt::green);
+    healthBar->setMaxValue(1000);
+    healthBar->setValue(currentHealth);
+    healthBar->setPos(-50,50);
+
+
+    coolDownBar1 = new ProgressBar(this);
+    coolDownBar1->setColor(Qt::red);
+    coolDownBar1->setMaxValue(2500);
+    coolDownBar1->setValue(1000);
+    coolDownBar1->setPos(-50,50);
+
+    coolDownBar2 = new ProgressBar(this);
+    coolDownBar2->setColor(Qt::red);
+    coolDownBar2->setMaxValue(2500);
+    coolDownBar2->setValue(1000);
+    coolDownBar2->setPos(-50,50);
+
+    coolDownBar3 = new ProgressBar(this);
+    coolDownBar3->setColor(Qt::red);
+    coolDownBar3->setMaxValue(2500);
+    coolDownBar3->setValue(1000);
+    coolDownBar3->setPos(-50,50);
+
+    coolDownBar4 = new ProgressBar(this);
+    coolDownBar4->setColor(Qt::red);
+    coolDownBar4->setMaxValue(2500);
+    coolDownBar4->setValue(1000);
+    coolDownBar4->setPos(-50,50);
 }
 
 QRectF playerShip::boundingRect() const {
@@ -72,15 +104,15 @@ void playerShip::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 
         QFont font;
         font.setBold(true);
-        font.setPointSize(20);
+        font.setPointSize(10);
         painter->setFont(font);
         painter->setPen(Qt::black); // Set the color for the text
 
         // Draw text inside each rectangle, centered
-        painter->drawText(rect1, Qt::AlignCenter, "1");
-        painter->drawText(rect2, Qt::AlignCenter, "2");
-        painter->drawText(rect3, Qt::AlignCenter, "3");
-        painter->drawText(rect4, Qt::AlignCenter, "4");
+        painter->drawText(rect1, Qt::TopRightCorner, "1");
+        painter->drawText(rect2, Qt::TopRightCorner, "2");
+        painter->drawText(rect3, Qt::TopLeftCorner, "3");
+        painter->drawText(rect4, Qt::TopRightCorner, "4");
     /*case 1:
             return  // Adjusted for new orientation
         case 2:
@@ -161,6 +193,7 @@ void playerShip::shootBlaster() {
 
 
 void playerShip::keyPressEvent(QKeyEvent *event) {
+    if(isAlive){
 
     // Handle key presses
     switch (event->key()) {
@@ -286,9 +319,9 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
                 break;
         }
 
-    // Update the position
+
     update();
-}
+}}
 
 
 
@@ -422,7 +455,7 @@ void playerShip::checkForCollisions() {
                     }
 
                     scene()->removeItem(augment);
-                    delete augment;
+                   // delete augment;
                     update(); // Update the ship's rendering
                 }
             }
@@ -507,6 +540,18 @@ void playerShip::moveFunc()
         qreal sceneHeight = scene()->sceneRect().height();
         pos.setX(qBound(0.0, pos.x(), sceneWidth));
         pos.setY(qBound(0.0, pos.y(), sceneHeight));*/
+    healthBar->setPos(this->getPosition().x()-50, this->getPosition().y()+100);
+
+    coolDownBar1->setPos(this->getPosition().x()+100, this->getPosition().y()-120);
+    coolDownBar2->setPos(this->getPosition().x()+100, this->getPosition().y()-100);
+    coolDownBar3->setPos(this->getPosition().x()-100, this->getPosition().y()+120);
+    coolDownBar4->setPos(this->getPosition().x()+100, this->getPosition().y()-100);
+
+
+    coolDownBar1->setValue(slot1DelayTimer.remainingTime());
+    coolDownBar2->setValue(slot2DelayTimer.remainingTime());
+    coolDownBar3->setValue(slot3DelayTimer.remainingTime());
+    coolDownBar4->setValue(slot4DelayTimer.remainingTime());
 
     update();
 }
@@ -529,6 +574,20 @@ bool playerShip::isTouchingPath() {
   return pixelColor != QColor(0, 0, 0);
 }
 
+void playerShip::takeDamage(int damage) {
+    currentHealth -= damage;
+    if (currentHealth < 0) {
+        currentHealth = 0;
+    }
+    healthBar->setValue(currentHealth);
+
+    if (currentHealth == 0) {
+        // Handle player death
+        isAlive=false;
+        std::cout << "Player has been destroyed!" << std::endl;
+        // Add more code to handle player death, like stopping the game or resetting the level
+    }
+}
 
 
 

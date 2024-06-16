@@ -13,6 +13,7 @@ enemy::enemy()
     connect(&shootingTimer, &QTimer::timeout, this, &enemy::shootBlaster);
     connect(&cooldownTimer, &QTimer::timeout, this, &enemy::cooldownTimerEvent);
 
+
     shootingTimer.start(500); // Adjust shooting interval as needed
 
     // Initialize progress bars
@@ -260,8 +261,8 @@ bool enemy::isTouchingPath() {
     // Adjust the path color condition based on your game's path color
     bool touching = (pixelColor != QColor(0, 0, 0)); // Check against path color
 
-    std::cout << "Pixel Color: " << pixelColor.red() << ", " << pixelColor.green() << ", " << pixelColor.blue() << std::endl;
-    std::cout << "Is touching path: " << touching << std::endl;
+    //std::cout << "Pixel Color: " << pixelColor.red() << ", " << pixelColor.green() << ", " << pixelColor.blue() << std::endl;
+    //std::cout << "Is touching path: " << touching << std::endl;
 
     return touching;
 }

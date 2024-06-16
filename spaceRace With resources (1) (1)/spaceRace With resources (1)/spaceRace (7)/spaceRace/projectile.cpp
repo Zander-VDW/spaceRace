@@ -4,10 +4,21 @@
 #include <QGraphicsItem>
 #include <cmath>
 #include <QtCore/qmath.h>
+#include <playerShip.h>
+#include <QTimer>
+#include <QObject>
 
 projectile::projectile(QPointF startPos, qreal angle)
-    : pos(startPos), angle(angle), speed(5) {
+    : pos(startPos), angle(angle), speed(10) {
     setPos(pos), setZValue(0); // Ensure this aligns the projectile's position properly
+
+    // Initialize timer with a 1 second delay (1000 milliseconds)
+    collisionTimer.setSingleShot(true);
+    collisionTimer.setInterval(500); // 1000 milliseconds = 1 second
+
+    // Connect timer to slot to enable collisions after timeout
+    connect(&collisionTimer, &QTimer::timeout, this, &projectile::enableCollisions);
+    collisionTimer.start(); // Start the timer
 }
 
 QRectF projectile::boundingRect() const {
@@ -33,7 +44,7 @@ void projectile::advance(int step) {
         return;
     }
 
-    // Check for collisions with enemies
+    if (canCollide) {
     QList<QGraphicsItem *> collidingItems = scene()->collidingItems(this);
     for (QGraphicsItem *item : collidingItems) {
         enemy *e = dynamic_cast<enemy *>(item);
@@ -44,4 +55,30 @@ void projectile::advance(int step) {
             return;
         }
     }
+
+
+    // Check for collisions with the player ship only if collisions are enabled
+
+        QList<QGraphicsItem *> colliding_items = collidingItems; // Use the previously obtained list of colliding items
+        for (QGraphicsItem *item : colliding_items) {
+            playerShip *player = dynamic_cast<playerShip *>(item);
+            if (player) {
+                // Check for collision based on shape of player ship
+                QPainterPath playerPath;
+
+                playerPath.addEllipse(player->getPosition(), 100, 100); // Assuming player ship is circular; adjust as per actual shape
+                if (playerPath.contains(pos)) {
+                    player->takeDamage(10); // Adjust the damage value as needed
+                    scene()->removeItem(this);
+                    delete this;
+                    return;
+                }
+            }
+        }
+    }
+
+}
+
+void projectile::enableCollisions() {
+    canCollide = true;
 }

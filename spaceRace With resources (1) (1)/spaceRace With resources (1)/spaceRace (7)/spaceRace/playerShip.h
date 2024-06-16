@@ -8,6 +8,7 @@
 #include <QKeyEvent> // Include QKeyEvent for handling key events
 #include <QTimer>
 #include <QtCore/QObject>
+#include <progressbar.h>
 
 class playerShip : public QObject, public QGraphicsItem
 {
@@ -21,6 +22,7 @@ public:
     QPointF getPosition() const { return pos; }
     void updateSlot(QString value);
     void advance(int phase) override;
+    void takeDamage(int damage);
 
 private:
     void checkForCollisions();
@@ -67,7 +69,16 @@ private:
 
     bool isTouchingPath();
 
+    int currentHealth;
+    int maxHealth;
 
+    ProgressBar* healthBar;
+    ProgressBar* coolDownBar1;
+    ProgressBar* coolDownBar2;
+    ProgressBar* coolDownBar3;
+    ProgressBar* coolDownBar4;
+
+    bool isAlive;
 
 
 
