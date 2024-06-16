@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/Augments">
+        <file>blaster_active.jpg</file>
+        <file>blaster_idle.jpg</file>
+        <file>shieldGeneratorIdle.jpg</file>
+        <file>thruster_Active.jpg</file>
+        <file>thruster_Active1.jpg.png</file>
+        <file>thruster_Idle.jpg</file>
+        <file>thruster_Idle1.jpg.png</file>
+        <file>asteroidBackGroundTiles.jpg</file>
+    </qresource>
+    <qresource prefix="/Menus">
+        <file>asteroidBackGroundTiles.jpg</file>
+        <file>asteroidBackGroundTilesBlue.jpg</file>
+        <file>starryBackground.jpg</file>
+        <file>rainbowImages.jpg</file>
+    </qresource>
+</RCC>
