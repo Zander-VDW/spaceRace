@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QUdpSocket>
+#include <QTimer>
 #include <QStringList>
 
 class NetworkManager : public QObject
@@ -14,14 +15,13 @@ public:
     ~NetworkManager();
 
     QStringList getAvailableGames();
-
-public slots:
     void sendHandshakeRequest(const QString &hostAddress);
     void sendHandshakeResponse(const QString &clientAddress, bool accepted, const QString &codeword);
     void broadcastGameAvailability();
+    void disconnect();
 
 signals:
-    void handshakeRequestReceived(const QString &clientAddress);
+    void handshakeRequestReceived(const QString &senderAddress);
     void handshakeAccepted(const QString &codeword);
     void handshakeRejected();
     void connectionError(const QString &message);
@@ -32,7 +32,10 @@ private slots:
 
 private:
     QUdpSocket *udpSocket;
+    QTimer *broadcastTimer;
     QStringList availableGames;
+    bool connected;
+    QString recipientAddress;
 };
 
 #endif // NETWORKMANAGER_H
