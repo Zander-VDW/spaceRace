@@ -5,14 +5,15 @@
 #include <QGraphicsView>
 #include <iostream>
 //ENEMY AI HANDLER
+bool alive=true;
 enemy::enemy()
-    : speed(1), angle(0)
+    : speed(1), angle(0), health(1000)
 {
     // Initialize timers
     connect(&shootingTimer, &QTimer::timeout, this, &enemy::shootBlaster);
     connect(&cooldownTimer, &QTimer::timeout, this, &enemy::cooldownTimerEvent);
 
-    shootingTimer.start(100); // Adjust shooting interval as needed
+    shootingTimer.start(500); // Adjust shooting interval as needed
 
     // Initialize augment properties (assuming augment is initialized appropriately)
     augment.setType("Blaster"); // Example type
@@ -26,7 +27,7 @@ enemy::~enemy()
 
 QRectF enemy::boundingRect() const
 {
-    return QRectF(-50, -50, 100, 100); // Adjust the bounding rect as necessary
+    return QRectF(-40, -40, 80, 80); // Adjust the bounding rect as necessary
 }
 
 void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -37,6 +38,10 @@ void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->translate(QPointF(0, 0));
     painter->rotate(angle);
     painter->save();
+
+    if(painter->setPen(Qt::green);){health>750}
+    if(health>500){painter->setPen(Qt::yellow);} else {painter->setPen(Qt::red);}
+    if(alive!=true){painter->setPen(Qt::NoBrush);}
 
     painter->setBrush(Qt::NoBrush);
     painter->drawEllipse(boundingRect()); // Draw a simple blue ellipse centered at (0, 0)
@@ -58,6 +63,7 @@ bool yAllowed = true;
 
 void enemy::updatePosition(QPointF playerPos)
 {
+    if (alive==true){
     // Check if the enemy is currently touching the path
     bool onPath = isTouchingPath();
 
@@ -167,7 +173,21 @@ void enemy::updatePosition(QPointF playerPos)
     // Trigger shooting based on a condition (e.g., augment is active)
     // shootBlaster();
 }
+}
 
+void enemy::takeDamage(int damage) {
+    health -= damage;
+    if (health <= 0) {
+        die();
+    }
+}
+
+void enemy::die() {
+    // Handle the death of the enemy (e.g., remove from scene, play animation, etc.)
+    //scene()->removeItem(this);
+    //this->deleteLater(); // Assuming you want to delete the enemy object
+    alive=false;
+}
 
 void enemy::advance(int step)
 {
@@ -177,7 +197,7 @@ void enemy::advance(int step)
 
 void enemy::shootBlaster()
 {
-    if (augment.getActive()) {
+    if (augment.getActive() && alive==true) {
         // Create projectile at current position with specified angle
         projectile *proj = new projectile(QPointF(pos().x()-50,pos().y()-50), angle);
         scene()->addItem(proj);

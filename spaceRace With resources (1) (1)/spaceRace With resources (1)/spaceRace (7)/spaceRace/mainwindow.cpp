@@ -39,7 +39,7 @@ void MainWindow::initializeApplication()
         std::cout << "Failed to load background image file";
     }
 
-    QBrush backgroundBrush(asteroidTiles);
+    QBrush backgroundBrush(Qt::black);//asteroidTiles
     scene.setBackgroundBrush(backgroundBrush);
 
     QScreen *screen = QGuiApplication::primaryScreen();
