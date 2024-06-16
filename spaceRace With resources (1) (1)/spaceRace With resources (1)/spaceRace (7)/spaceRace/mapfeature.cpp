@@ -11,10 +11,10 @@ mapFeature::mapFeature(const QRectF &bounds)
 }
 
 void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
-    painter->setPen(Qt::NoBrush);
-    painter->setBrush(Qt::NoBrush);
-    setZValue(2);
-    painter->save();
+    painter->setPen(Qt::darkBlue);
+    painter->setBrush(Qt::darkBlue);
+    setZValue(0);
+
 
     //painter->setBrush(QColor(139, 69, 50));
     //painter->setPen(QColor(139, 69, 50));
@@ -22,6 +22,8 @@ void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     QImage tileImage = QImage(":/Menus/rainbowImages.jpg");
 
     painter->setBrush(tileImage);
+
+    painter->save();
 
     for (const QRectF &rect : rectangles) {
         painter->drawRect(rect);
@@ -36,7 +38,7 @@ QRectF mapFeature::boundingRect() const {
 
 void mapFeature::runCourse()
 {
-    QPointF penPoint = QPointF(-150, -150);
+    QPointF penPoint = QPointF(-149, -149);
     int length = 300;
     QSize size = QSize(300, 300);
     char direction = 'd';
