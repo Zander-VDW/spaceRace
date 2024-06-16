@@ -75,6 +75,7 @@ private:
     void setupHostMenu();
     void setupJoinMenu();
     void initializeGame();
+    void initializeApplication();
     QString getLocalHostAddress();
     void processJoinRequest();
     void joinRequest(const QString &hostAddress);
