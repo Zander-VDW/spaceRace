@@ -26,6 +26,8 @@ enemy::enemy()
     // Initialize augment properties (assuming augment is initialized appropriately)
     augment.setType("Blaster"); // Example type
     augment.setActive(true);    // Example active state
+
+    enemyShip.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/ships/enemyShip.png");
 }
 
 enemy::~enemy()
@@ -35,7 +37,7 @@ enemy::~enemy()
 
 QRectF enemy::boundingRect() const
 {
-    return QRectF(-40, -40, 80, 80); // Adjust the bounding rect as necessary
+    return QRectF(-75, -75, 150, 150); // Adjust the bounding rect as necessary
 }
 
 void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -49,15 +51,17 @@ void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     painter->save();
 
     painter->setBrush(Qt::NoBrush);
-    painter->drawEllipse(boundingRect()); // Draw a simple blue ellipse centered at (0, 0)
+
     painter->restore();
 
     setZValue(1);
 
-    painter->setBrush(Qt::red);
-
-    augment.paint(painter, option, widget);
+    //augment.paint(painter, option, widget);
     // painter->drawEllipse(50, 10, 10, 10);
+
+    //QBrush brush(enemyShip);
+    //painter->setBrush(brush);
+    painter->drawImage(-50, -50, enemyShip);
 }
 
 int DirectionReg = 100;
@@ -208,7 +212,7 @@ void enemy::shootBlaster()
 {
     if (augment.getActive() && alive==true) {
         // Create projectile at current position with specified angle
-        projectile *proj = new projectile(QPointF(pos().x()-50,pos().y()-50), angle);
+        projectile *proj = new projectile(QPointF(pos().x(),pos().y()), angle);
         scene()->addItem(proj);
     }
 }

@@ -15,7 +15,7 @@
 #include "projectile.h"
 #include <progressbar.h>
 
-
+int imageAngle;
 playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1000), maxHealth(1000), isAlive(true) {
     // Initialize ship properties here if needed
     //this->highlightedSlot = 1;
@@ -66,6 +66,8 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1
     coolDownBar4->setMaxValue(3000);
     coolDownBar4->setValue(3000);
     coolDownBar4->setPos(-50,50);
+
+    playerShipImage.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/ships/playerShip.png");
 }
 
 QRectF playerShip::boundingRect() const {
@@ -162,8 +164,14 @@ void playerShip::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
                     painter->drawEllipse(QRectF(-120, -120, 240, 240));
                 }
 
-    painter->restore();
 
+    painter->rotate(imageAngle);
+    painter->drawImage(-123, -127, playerShipImage); //(-123, -127)
+    painter->setBrush(Qt::red);
+    //painter->drawEllipse(-12-5, -12-5,10,10); //exactly at pixelcheckpoint (when using screen dimensions)
+   // painter->drawEllipse(-5, -5,10,10); //exactly at midpoint
+
+    painter->restore();
     setZValue(2);
 }
 
@@ -199,22 +207,22 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
     case Qt::Key_W:
         //pos.setY(pos.y() - speed);
-        //angle = -90; // Up
+        imageAngle = 0; // Up
         lastDirection='w';
         break;
     case Qt::Key_A:
        // pos.setX(pos.x() - speed);
-        //angle = 180; // Left
+        imageAngle = 0; // Left
         lastDirection='a';
         break;
     case Qt::Key_S:
         //pos.setY(pos.y() + speed);
-        //angle = 90; // Down
+        imageAngle = 0; // Down
         lastDirection='s';
         break;
     case Qt::Key_D:
        // pos.setX(pos.x() + speed);
-     //   angle = 0; // Right
+        imageAngle = 0; // Right
         lastDirection='d';
         break;
 
@@ -565,8 +573,9 @@ bool playerShip::isTouchingPath() {
 
   // Get the graphics view associated with the scene
   QGraphicsView *view = scene()->views().first();
+   QPoint center(view->width()/2-12, view->height()/2-12);
 
-  QPoint center(view->width()/2, view->height()/2);
+  //QPoint center(view->width()/2-12-25, view->height()/2-12);
 
   // Capture an image of the visible area of the scene
   QImage image = view->grab().toImage();
@@ -575,7 +584,11 @@ bool playerShip::isTouchingPath() {
   QColor pixelColor = image.pixelColor(center);
 
   // Check if the pixel color matches the path color (130, 135, 144)
-  //std::cout << "Is touching Blue: " << pixelColor.red() << " " << pixelColor.green() << " " << pixelColor.blue() << std::endl;
+  std::cout << "Is touching : " << pixelColor.red() << " " << pixelColor.green() << " " << pixelColor.blue() << std::endl;
+  /*if(pixelColor==QColor(0, 0, 0))
+  {
+     std::cout << "POS: Y - > " << this->getPosition().y() << std::endl;
+  }*/
   return pixelColor != QColor(0, 0, 0);
 }
 

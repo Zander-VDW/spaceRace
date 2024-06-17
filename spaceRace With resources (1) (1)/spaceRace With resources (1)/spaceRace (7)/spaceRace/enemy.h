@@ -41,6 +41,7 @@ private:
      int health;
 
      ProgressBar* healthBar;
+     QImage enemyShip;
 };
 
 #endif // ENEMY_H
