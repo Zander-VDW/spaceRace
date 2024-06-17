@@ -10,10 +10,11 @@
 #include <QDateTime>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QString>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      connectionEstablished(false)
+      connectionEstablished(true)
 {
     mediaPlayer = new QMediaPlayer(this);
     buttonClickSound = new QSoundEffect(this);
@@ -47,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     setupMultiplayerMenu();
     setupHostMenu();
     setupJoinMenu();
-    setupGameover(0,"null");
+    setupGameover(60000,"w");
 
     stackedWidget->addWidget(mainMenuWidget);
     stackedWidget->addWidget(multiplayerMenuWidget);
@@ -266,7 +267,7 @@ void MainWindow::setupMainMenu()
     layout->addWidget(multiplayerButton);
     layout->setAlignment(Qt::AlignCenter);
 
-    connect(singlePlayerButton, &QPushButton::clicked, this, &MainWindow::startGame);
+    connect(singlePlayerButton, &QPushButton::clicked, this, &MainWindow::showGameover);
     connect(singlePlayerButton, &QPushButton::clicked, this, &MainWindow::playButtonClickSound);
     connect(multiplayerButton, &QPushButton::clicked, this, &MainWindow::showMultiplayerMenu);
     connect(multiplayerButton, &QPushButton::clicked, this, &MainWindow::playButtonClickSound);
@@ -389,10 +390,12 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
         nameLabel->setPalette(palette);
 
         if(higherThanThird){
-        layout->addWidget(nameLabel);
-        layout->addWidget(hscorelabel);
-        QLineEdit *nameInput = new QLineEdit(GameoverWidget);
-        layout->addWidget(nameInput);
+            layout->addWidget(nameLabel);
+            layout->addWidget(hscorelabel);
+            QLineEdit *nameInput = new QLineEdit(GameoverWidget);
+            layout->addWidget(nameInput);
+            connect(nameInput, &QLineEdit::editingFinished, this, &MainWindow::saveScore); // Connect the input to saveScore slot
+            nameInput->setProperty("currentScore", currentScore); // Store current score in the widget's property
         }
 
         // Display the top 3 highest scores
@@ -435,14 +438,12 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     connect(returnToMainMenuButton, &QPushButton::clicked, this, &MainWindow::playButtonClickSound);
 
     // Save score when the player enters their name
-    /*connect(nameInput, &QLineEdit::editingFinished, this, [this, nameInput, currentScore, &scores, top3ScoresLabel]() mutable {
-        qDebug() << "Name input editing finished. Processing score entry...";
-        processScoreEntry(nameInput, currentScore, scores, top3ScoresLabel);
-    });*/
+
 
     GameoverWidget->setLayout(layout);
     qDebug() << "Gameover widget setup completed";
 }
+
 
 void MainWindow::updateTop3ScoresLabel(const QVector<ScoreEntry> &scores, QLabel *label)
 {
@@ -483,6 +484,31 @@ QVector<ScoreEntry> MainWindow::readScoresFromFile(const QString &filePath)
 
     return scores;
 }
+
+void MainWindow::saveScore()
+{
+    QLineEdit *nameInput = qobject_cast<QLineEdit*>(sender());
+    if (!nameInput) return;
+
+    QString playerName = nameInput->text();
+    if (playerName.isEmpty()) return;
+
+    int currentScore = nameInput->property("currentScore").toInt();
+    QString timestamp = QDateTime::currentDateTime().toString(Qt::ISODate);
+
+    QString scoreEntry = QString("%1,%2,%3\n").arg(playerName).arg(currentScore).arg(timestamp);
+
+    QFile file("C:/Users/Zayn/Downloads/spaceRace actual previous save!!!/spaceRace/spaceRaceREII313/menus/scores.txt");
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << scoreEntry;
+        file.close();
+        qDebug() << "Score saved:" << scoreEntry;
+    } else {
+        qDebug() << "Failed to open scores file for writing.";
+    }
+}
+
 
 void MainWindow::saveScoresToFile(const QString &filePath, const QVector<ScoreEntry> &scores)
 {
@@ -576,7 +602,7 @@ void MainWindow::initializeApplication()
     player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     scene.addItem(player1Ship);
 
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "");
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "HOST");
     scene.addItem(feature1);
 
     enemyTargetPos = player1Ship->getPosition();
@@ -681,7 +707,7 @@ void MainWindow::initializeMultiplayerApplication()
     player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     scene.addItem(player1Ship);
 
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "");
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "HOST");
     scene.addItem(feature1);
 
     enemyTargetPos = player1Ship->getPosition();

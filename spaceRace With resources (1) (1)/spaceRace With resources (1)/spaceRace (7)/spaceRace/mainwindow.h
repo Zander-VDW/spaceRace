@@ -53,7 +53,7 @@ private slots:
     void showMultiplayerMenu();
     void showHostMenu();
     void showJoinMenu();
-
+    void saveScore();
     void startGame();
     void startMultiplayerGame();
 
