@@ -14,6 +14,7 @@ public:
     explicit NetworkManager(QObject *parent = nullptr);
     ~NetworkManager();
 
+    bool connected;
     QStringList getAvailableGames();
     void sendHandshakeRequest(const QString &hostAddress);
     void sendHandshakeResponse(const QString &clientAddress, bool accepted, const QString &codeword);
@@ -36,7 +37,7 @@ private:
     QTimer *broadcastTimer;
     QStringList availableGames;
     QString recipientAddress;
-    bool connected;
+
 
 };
 
