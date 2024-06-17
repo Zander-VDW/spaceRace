@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[24];
-    char stringdata0[350];
+    QByteArrayData data[21];
+    char stringdata0[328];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,36 +37,32 @@ QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 19), // "showMultiplayerMenu"
 QT_MOC_LITERAL(4, 45, 12), // "showHostMenu"
 QT_MOC_LITERAL(5, 58, 12), // "showJoinMenu"
-QT_MOC_LITERAL(6, 71, 9), // "saveScore"
-QT_MOC_LITERAL(7, 81, 9), // "startGame"
-QT_MOC_LITERAL(8, 91, 20), // "startMultiplayerGame"
-QT_MOC_LITERAL(9, 112, 21), // "changeBackgroundMusic"
-QT_MOC_LITERAL(10, 134, 8), // "filePath"
-QT_MOC_LITERAL(11, 143, 20), // "playButtonClickSound"
-QT_MOC_LITERAL(12, 164, 21), // "removeBackgroundImage"
-QT_MOC_LITERAL(13, 186, 12), // "acceptPlayer"
-QT_MOC_LITERAL(14, 199, 6), // "player"
-QT_MOC_LITERAL(15, 206, 12), // "rejectPlayer"
-QT_MOC_LITERAL(16, 219, 26), // "onHandshakeRequestReceived"
-QT_MOC_LITERAL(17, 246, 13), // "clientAddress"
-QT_MOC_LITERAL(18, 260, 19), // "onHandshakeAccepted"
-QT_MOC_LITERAL(19, 280, 8), // "codeword"
-QT_MOC_LITERAL(20, 289, 19), // "onHandshakeRejected"
-QT_MOC_LITERAL(21, 309, 17), // "onConnectionError"
-QT_MOC_LITERAL(22, 327, 7), // "message"
-QT_MOC_LITERAL(23, 335, 14) // "onDisconnected"
+QT_MOC_LITERAL(6, 71, 9), // "startGame"
+QT_MOC_LITERAL(7, 81, 20), // "startMultiplayerGame"
+QT_MOC_LITERAL(8, 102, 21), // "changeBackgroundMusic"
+QT_MOC_LITERAL(9, 124, 8), // "filePath"
+QT_MOC_LITERAL(10, 133, 20), // "playButtonClickSound"
+QT_MOC_LITERAL(11, 154, 21), // "removeBackgroundImage"
+QT_MOC_LITERAL(12, 176, 26), // "onHandshakeRequestReceived"
+QT_MOC_LITERAL(13, 203, 13), // "clientAddress"
+QT_MOC_LITERAL(14, 217, 19), // "onHandshakeAccepted"
+QT_MOC_LITERAL(15, 237, 8), // "codeword"
+QT_MOC_LITERAL(16, 246, 7), // "mapseed"
+QT_MOC_LITERAL(17, 254, 19), // "onHandshakeRejected"
+QT_MOC_LITERAL(18, 274, 17), // "onConnectionError"
+QT_MOC_LITERAL(19, 292, 7), // "message"
+QT_MOC_LITERAL(20, 300, 27) // "handleAvailableGamesChanged"
 
     },
     "MainWindow\0showMainMenu\0\0showMultiplayerMenu\0"
-    "showHostMenu\0showJoinMenu\0saveScore\0"
-    "startGame\0startMultiplayerGame\0"
-    "changeBackgroundMusic\0filePath\0"
-    "playButtonClickSound\0removeBackgroundImage\0"
-    "acceptPlayer\0player\0rejectPlayer\0"
-    "onHandshakeRequestReceived\0clientAddress\0"
-    "onHandshakeAccepted\0codeword\0"
-    "onHandshakeRejected\0onConnectionError\0"
-    "message\0onDisconnected"
+    "showHostMenu\0showJoinMenu\0startGame\0"
+    "startMultiplayerGame\0changeBackgroundMusic\0"
+    "filePath\0playButtonClickSound\0"
+    "removeBackgroundImage\0onHandshakeRequestReceived\0"
+    "clientAddress\0onHandshakeAccepted\0"
+    "codeword\0mapseed\0onHandshakeRejected\0"
+    "onConnectionError\0message\0"
+    "handleAvailableGamesChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -76,7 +72,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -84,23 +80,20 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   99,    2, 0x08 /* Private */,
-       3,    0,  100,    2, 0x08 /* Private */,
-       4,    0,  101,    2, 0x08 /* Private */,
-       5,    0,  102,    2, 0x08 /* Private */,
-       6,    0,  103,    2, 0x08 /* Private */,
-       7,    0,  104,    2, 0x08 /* Private */,
-       8,    0,  105,    2, 0x08 /* Private */,
-       9,    1,  106,    2, 0x08 /* Private */,
-      11,    0,  109,    2, 0x08 /* Private */,
-      12,    0,  110,    2, 0x08 /* Private */,
-      13,    1,  111,    2, 0x08 /* Private */,
-      15,    1,  114,    2, 0x08 /* Private */,
-      16,    1,  117,    2, 0x08 /* Private */,
-      18,    1,  120,    2, 0x08 /* Private */,
-      20,    0,  123,    2, 0x08 /* Private */,
-      21,    1,  124,    2, 0x08 /* Private */,
-      23,    1,  127,    2, 0x08 /* Private */,
+       1,    0,   84,    2, 0x08 /* Private */,
+       3,    0,   85,    2, 0x08 /* Private */,
+       4,    0,   86,    2, 0x08 /* Private */,
+       5,    0,   87,    2, 0x08 /* Private */,
+       6,    0,   88,    2, 0x08 /* Private */,
+       7,    0,   89,    2, 0x08 /* Private */,
+       8,    1,   90,    2, 0x08 /* Private */,
+      10,    0,   93,    2, 0x08 /* Private */,
+      11,    0,   94,    2, 0x08 /* Private */,
+      12,    1,   95,    2, 0x08 /* Private */,
+      14,    2,   98,    2, 0x08 /* Private */,
+      17,    0,  103,    2, 0x08 /* Private */,
+      18,    1,  104,    2, 0x08 /* Private */,
+      20,    0,  107,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -109,17 +102,14 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   10,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   13,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   15,   16,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   14,
-    QMetaType::Void, QMetaType::QString,   14,
-    QMetaType::Void, QMetaType::QString,   17,
     QMetaType::Void, QMetaType::QString,   19,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,   22,
-    QMetaType::Void, QMetaType::QString,   22,
 
        0        // eod
 };
@@ -134,19 +124,16 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->showMultiplayerMenu(); break;
         case 2: _t->showHostMenu(); break;
         case 3: _t->showJoinMenu(); break;
-        case 4: _t->saveScore(); break;
-        case 5: _t->startGame(); break;
-        case 6: _t->startMultiplayerGame(); break;
-        case 7: _t->changeBackgroundMusic((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 8: _t->playButtonClickSound(); break;
-        case 9: _t->removeBackgroundImage(); break;
-        case 10: _t->acceptPlayer((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 11: _t->rejectPlayer((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 12: _t->onHandshakeRequestReceived((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 13: _t->onHandshakeAccepted((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 14: _t->onHandshakeRejected(); break;
-        case 15: _t->onConnectionError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 16: _t->onDisconnected((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 4: _t->startGame(); break;
+        case 5: _t->startMultiplayerGame(); break;
+        case 6: _t->changeBackgroundMusic((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 7: _t->playButtonClickSound(); break;
+        case 8: _t->removeBackgroundImage(); break;
+        case 9: _t->onHandshakeRequestReceived((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 10: _t->onHandshakeAccepted((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 11: _t->onHandshakeRejected(); break;
+        case 12: _t->onConnectionError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 13: _t->handleAvailableGamesChanged(); break;
         default: ;
         }
     }
@@ -181,13 +168,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 17;
+        _id -= 14;
     }
     return _id;
 }

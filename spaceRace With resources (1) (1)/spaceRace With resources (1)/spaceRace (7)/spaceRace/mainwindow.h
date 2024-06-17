@@ -50,6 +50,7 @@ public:
     int player;
     QString mapSeed;
     QString hostMapGenerator();
+    void receiveProjectileData();
 
 
 

@@ -69,7 +69,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(networkManager, &NetworkManager::handshakeAccepted, this, &MainWindow::onHandshakeAccepted);
     connect(networkManager, &NetworkManager::handshakeRejected, this, &MainWindow::onHandshakeRejected);
     connect(networkManager, &NetworkManager::availableGamesChanged, this, &MainWindow::handleAvailableGamesChanged);
-    //connect(networkManager, &NetworkManager::handshakeAccepted, this, &MainWindow::player2mapseed);
+
+    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
     //connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
 
 }
@@ -673,16 +674,16 @@ void MainWindow::initializeApplication()
     timer.setInterval(1); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
-        /*if(enemy1->drop == "Blaster"){
+        if(enemy1->drop == "Blaster"){
 
             shipAugment *augment1 = new shipAugment();
             augment1->setPos(enemy1->pos());
             augment1->setType("Blaster");
             scene.addItem(augment1);
-            //qDebug() << "added drop : " << enemy1->drop;
-            //enemy1->drop = "";*/
+            qDebug() << "added drop : " << enemy1->drop;
+            enemy1->drop = "";
 
-        //}
+        }
         scene.advance(); // Call advance to drive animation and collision detection
         enemy1->updatePosition(enemyTargetPos);
         enemyTargetPos = player1Ship->getPosition();
@@ -785,6 +786,8 @@ void MainWindow::initializeMultiplayerApplication()
     view->resize(viewWidth, viewHeight); // Set window size
     view->centerOn(player1Ship->getPosition());
 
+
+
     timer.setInterval(1); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
@@ -796,7 +799,16 @@ void MainWindow::initializeMultiplayerApplication()
         enemyTargetPos = player1Ship->getPosition();
         view->centerOn(player1Ship->getPosition());
         scene.update();
-        //std::cout << "playerShip Position: " << player1Ship->pos().x() << ", " << player1Ship->pos().y() << std::endl;
+//        //std::cout << "playerShip Position: " << player1Ship->pos().x() << ", " << player1Ship->pos().y() << std::endl;
+
+//       //eg."projectile: positionX, positionY, angle"
+       QString projectileData = "propped data";
+       receiveProjectileData();
+     //  Qdebug() << "";
+
+
+
+
     });
     timer.start();
 
@@ -805,4 +817,23 @@ void MainWindow::initializeMultiplayerApplication()
     /*setupGameover(int currentscore, "w"or"l")
      * showGameoveer();
 */
+}
+
+QString projectileReceiveData;
+QString projectileSendData;
+void MainWindow::receiveProjectileData() //////////////////////////////////////NETWORK STUFF 2
+{
+    networkManager->sendProjectileData(projectileSendData);
+    projectileReceiveData = "";
+
+    if(projectileReceiveData.contains("projectile"))
+    {
+        int projectileX = 0;
+        int projectileY = 0;
+        int projectileAngle = 0;
+
+            projectile *proj = new projectile(QPointF(projectileX, projectileY),projectileAngle);
+    scene.addItem(proj);
+    }
+
 }

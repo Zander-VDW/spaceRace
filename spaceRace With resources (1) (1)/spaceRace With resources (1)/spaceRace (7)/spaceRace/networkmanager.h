@@ -22,6 +22,7 @@ public:
     void broadcastGameAvailability();
     void disconnect();
     void sendMapSeedToPlayer2(const QString &mapseed);
+    void sendProjectileData(QString &projectileData);
 
 signals:
     void handshakeRequestReceived(const QString &senderAddress);
@@ -29,6 +30,7 @@ signals:
     void handshakeRejected();
     void connectionError(const QString &message);
     void availableGamesChanged();
+
 
 private slots:
     void processPendingDatagrams();

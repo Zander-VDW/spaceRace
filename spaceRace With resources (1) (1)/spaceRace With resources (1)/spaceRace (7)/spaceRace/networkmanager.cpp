@@ -48,6 +48,8 @@ void NetworkManager::sendHandshakeRequest(const QString &hostAddress)
     QByteArray data = "2HANDSHAKE_REQUEST";
     qDebug() << "Sending handshake request to" << hostAddress << ":" << data;
     udpSocket->writeDatagram(data, QHostAddress(hostAddress), 12345);
+
+
 }
 
 
@@ -100,6 +102,13 @@ void NetworkManager::sendMapSeedToPlayer2(const QString &mapseed)
     qDebug() << "Sending map seed data to Player 2:" << mapseed;
 }
 
+QString projectileSendData;
+void NetworkManager::sendProjectileData(QString &projectileData) //////////////////////////////////////////////////////////NETWORK STUFF 1
+{
+    QByteArray data =  projectileData.toUtf8();
+    udpSocket->writeDatagram(data, QHostAddress(recipientAddress), 12345);
+    qDebug() << "Sending map seed data to Player 2:" << projectileSendData;
+}
 
 
 void NetworkManager::processPendingDatagrams()
