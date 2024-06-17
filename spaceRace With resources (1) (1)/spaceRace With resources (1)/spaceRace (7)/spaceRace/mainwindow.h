@@ -30,6 +30,7 @@
 #include <QDateTime>
 
 #include <QLineEdit>
+#include <QShowEvent>
 
 struct ScoreEntry {
     QString name;
@@ -46,6 +47,11 @@ public:
     ~MainWindow();
     void setupGameover(int currentScore, const QString &defaultName);
     int buttonWidth;
+    int player;
+    QString mapSeed;
+    QString hostMapGenerator();
+
+
 
 
 private slots:
@@ -53,23 +59,25 @@ private slots:
     void showMultiplayerMenu();
     void showHostMenu();
     void showJoinMenu();
-    void saveScore();
+
     void startGame();
     void startMultiplayerGame();
 
     void changeBackgroundMusic(const QString &filePath);
     void playButtonClickSound();
     void removeBackgroundImage();
-    void acceptPlayer(const QString &player);
-    void rejectPlayer(const QString &player);
+    //void acceptPlayer(const QString &player);
+    //void rejectPlayer(const QString &player);
 
     void onHandshakeRequestReceived(const QString &clientAddress);
-        void onHandshakeAccepted(const QString &codeword);
+        void onHandshakeAccepted(const QString &codeword, const QString &mapseed);
         void onHandshakeRejected();
         void onConnectionError(const QString &message);
-        void onDisconnected(const QString &message);
+    void handleAvailableGamesChanged();
+
 
 private:
+        void saveScore();
     void showGameover();
     void setupMainMenu();
     void setupMultiplayerMenu();
@@ -117,6 +125,11 @@ private:
         playerShip *player1Ship;
         enemy *enemy1;
         QPointF enemyTargetPos;
+//    void player2mapseed(const QString &codeword, const QString &mapseed);
+
+//protected:
+//    void showEvent(QShowEvent *event) override;
+//    void hideEvent(QHideEvent *event) override;
 
 
 };

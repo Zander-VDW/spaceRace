@@ -7,7 +7,7 @@
 #include <iostream>
 
 mapFeature::mapFeature(const QRectF &bounds, QString seed)
-    : sceneBounds(bounds) // Initialize scene bounds
+    : sceneBounds(bounds)
 {
     srand(static_cast<unsigned>(time(0)));
     runCourse();
