@@ -14,7 +14,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
-      connectionEstablished(true)
+      connectionEstablished(false)
 {
     mediaPlayer = new QMediaPlayer(this);
     buttonClickSound = new QSoundEffect(this);
@@ -68,13 +68,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(networkManager, &NetworkManager::handshakeRequestReceived, this, &MainWindow::onHandshakeRequestReceived);
     connect(networkManager, &NetworkManager::handshakeAccepted, this, &MainWindow::onHandshakeAccepted);
     connect(networkManager, &NetworkManager::handshakeRejected, this, &MainWindow::onHandshakeRejected);
-    connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
-    connect(networkManager, &NetworkManager::disconnected, this, &MainWindow::onDisconnected);
+    connect(networkManager, &NetworkManager::availableGamesChanged, this, &MainWindow::handleAvailableGamesChanged);
+    //connect(networkManager, &NetworkManager::handshakeAccepted, this, &MainWindow::player2mapseed);
+    //connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
+
 }
-
-
-
-
 
 MainWindow::~MainWindow()
 {
@@ -83,24 +81,29 @@ MainWindow::~MainWindow()
 void MainWindow::setupHostMenu()
 {
     QVBoxLayout *layout = new QVBoxLayout(hostMenuWidget);
+    player = 1;
 
-    for (const QString &player : pendingPlayers) {
+    /*for (const QString &player : pendingPlayers) {
         QPushButton *acceptButton = new QPushButton("Accept " + player, hostMenuWidget);
         QPushButton *rejectButton = new QPushButton("Reject " + player, hostMenuWidget);
 
         layout->addWidget(acceptButton);
         layout->addWidget(rejectButton);
 
-        connect(acceptButton, &QPushButton::clicked, [this, player]() { acceptPlayer(player); });
-        connect(rejectButton, &QPushButton::clicked, [this, player]() { rejectPlayer(player); });
-    }
+        connect(acceptButton, &QPushButton::clicked, [this, player]() {acceptPlayer(player); startMultiplayerGame();});
+        connect(rejectButton, &QPushButton::clicked, [this, player]() {
+            rejectPlayer(player);
+        });
+    }*/
 
     QPushButton *backButton = new QPushButton("Back", hostMenuWidget);
     backButton->setFixedWidth(buttonWidth);
     layout->addWidget(backButton);
     layout->setAlignment(Qt::AlignCenter);
 
-    connect(backButton, &QPushButton::clicked, this, &MainWindow::showMultiplayerMenu);
+    connect(backButton, &QPushButton::clicked, [this]() {
+        showMultiplayerMenu();
+    });
 }
 
 void MainWindow::setupJoinMenu()
@@ -127,6 +130,8 @@ void MainWindow::updateGameList()
     QStringList availableGames = networkManager->getAvailableGames();
     gameListWidget->addItems(availableGames);
 
+    qDebug() << "Game list updated. Available games:" << availableGames;
+
     connect(gameListWidget, &QListWidget::itemClicked, this, [this](QListWidgetItem *item) {
         onGameSelected(item->text());
     });
@@ -134,26 +139,23 @@ void MainWindow::updateGameList()
 
 void MainWindow::onGameSelected(const QString &hostAddress)
 {
-    QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this, "Join Game", "Do you want to join the game hosted by " + hostAddress + "?",
-                                  QMessageBox::Yes | QMessageBox::No);
-    if (reply == QMessageBox::Yes) {
+        player = 2;
         networkManager->sendHandshakeRequest(hostAddress);
-    }
 }
 
-void MainWindow::acceptPlayer(const QString &player)
+/*void MainWindow::acceptPlayer(const QString &player)
 {
     QString codeword = QDateTime::currentDateTime().toString(Qt::ISODate);
-    networkManager->sendHandshakeResponse(player, true, codeword);
+    networkManager->sendHandshakeResponse(player, true, codeword, mapSeed);
+
     this->codeword = codeword;
     connectionEstablished = true; // Set the flag to true
 }
 
 void MainWindow::rejectPlayer(const QString &player)
 {
-    networkManager->sendHandshakeResponse(player, false, QString());
-}
+    networkManager->sendHandshakeResponse(player, false, QString(), "");
+}*/
 
 void MainWindow::onHandshakeRequestReceived(const QString &clientAddress)
 {
@@ -161,20 +163,27 @@ void MainWindow::onHandshakeRequestReceived(const QString &clientAddress)
     reply = QMessageBox::question(this, "New Player Request", "Do you want to accept the player from " + clientAddress + "?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
+        QString mapSeed = hostMapGenerator(); // Ensure this function is defined
         QString codeword = QDateTime::currentDateTime().toString(Qt::ISODate);
-        networkManager->sendHandshakeResponse(clientAddress, true, codeword);
+        networkManager->sendHandshakeResponse(clientAddress, true, codeword, mapSeed);
         this->codeword = codeword;
         connectionEstablished = true; // Set the flag to true
+        qDebug() << "Handshake accepted with" << clientAddress;
     } else {
-        networkManager->sendHandshakeResponse(clientAddress, false, QString());
+        networkManager->sendHandshakeResponse(clientAddress, false, QString(), "");
+        qDebug() << "Handshake rejected with" << clientAddress;
     }
 }
 
-void MainWindow::onHandshakeAccepted(const QString &codeword)
+void MainWindow::onHandshakeAccepted(const QString &codeword, const QString &mapseed)
 {
+    networkManager->stopBroadcasting();
+    networkManager->sendMapSeedToPlayer2(mapseed);
+    mapSeed = mapseed;
     this->codeword = codeword;
     connectionEstablished = true; // Set the flag to true
     QMessageBox::information(this, "Handshake", "Connection established. You are now connected.");
+    startMultiplayerGame();
 }
 
 void MainWindow::onHandshakeRejected()
@@ -182,16 +191,16 @@ void MainWindow::onHandshakeRejected()
     QMessageBox::information(this, "Handshake", "Connection rejected by the host.");
 }
 
+void MainWindow::handleAvailableGamesChanged()
+{
+    qDebug() << "Available games changed signal received.";
+    updateGameList();
+}
+
 void MainWindow::onConnectionError(const QString &message)
 {
     connectionEstablished = false; // Set the flag to false
-    QMessageBox::critical(this, "Connection Error", message);
-}
-
-void MainWindow::onDisconnected(const QString &message)
-{
-    connectionEstablished = false; // Set the flag to false
-    QMessageBox::warning(this, "Disconnected", message);
+    qDebug() << "Connection Error:" << message;
 }
 
 void MainWindow::showMultiplayerMenu()
@@ -201,12 +210,13 @@ void MainWindow::showMultiplayerMenu()
 
 void MainWindow::showMainMenu()
 {
+   networkManager->stopBroadcasting();
    stackedWidget->setCurrentWidget(mainMenuWidget);
 }
 
 void MainWindow::showHostMenu()
 {
-    networkManager->hostGame();
+    networkManager->startBroadcasting();
     stackedWidget->setCurrentWidget(hostMenuWidget);
 }
 
@@ -226,16 +236,6 @@ void MainWindow::startGame()
 
 }
 
-void MainWindow::startMultiplayerGame()
-{
-    removeBackgroundImage();
-    stackedWidget->hide();
-    QWidget *gameCentralWidget = new QWidget();
-    setCentralWidget(gameCentralWidget);
-    initializeMultiplayerApplication();
-
-}
-
 void MainWindow::showGameover()
 {
     qDebug() << "Showing Gameover widget";
@@ -245,7 +245,6 @@ void MainWindow::showGameover()
 
 void MainWindow::setupMainMenu()
 {
-
     QLabel *gameNameLabel = new QLabel("Game Name", mainMenuWidget);
     QFont font = gameNameLabel->font();
     font.setPointSize(200); // Set the font size
@@ -444,7 +443,6 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     qDebug() << "Gameover widget setup completed";
 }
 
-
 void MainWindow::updateTop3ScoresLabel(const QVector<ScoreEntry> &scores, QLabel *label)
 {
     QString text = "Top 3 Scores:\n";
@@ -509,7 +507,6 @@ void MainWindow::saveScore()
     }
 }
 
-
 void MainWindow::saveScoresToFile(const QString &filePath, const QVector<ScoreEntry> &scores)
 {
     QFile file(filePath);
@@ -564,6 +561,24 @@ void MainWindow::removeBackgroundImage()
     backgroundLabel->clear();
 }
 
+QString MainWindow::hostMapGenerator()
+{
+    ////if player 1 run this
+    ///
+    QString seed = "wasdwadsdwasdsadwwwwwwsdawdsadwad";
+    return seed;
+}
+
+void MainWindow::startMultiplayerGame()
+{
+    networkManager->stopBroadcasting();
+    removeBackgroundImage();
+    stackedWidget->hide();
+    QWidget *gameCentralWidget = new QWidget();
+    setCentralWidget(gameCentralWidget);
+    initializeMultiplayerApplication();
+
+}
 
 void MainWindow::initializeApplication()
 {
@@ -571,9 +586,13 @@ void MainWindow::initializeApplication()
     view->setParent(this);
 
 
+
     player1Ship = new playerShip();
     enemy1 = new enemy();
+       /*if(enemy1->drop == ""){
 
+
+       }*/
 
     QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
 
@@ -654,6 +673,16 @@ void MainWindow::initializeApplication()
     timer.setInterval(1); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
+        /*if(enemy1->drop == "Blaster"){
+
+            shipAugment *augment1 = new shipAugment();
+            augment1->setPos(enemy1->pos());
+            augment1->setType("Blaster");
+            scene.addItem(augment1);
+            //qDebug() << "added drop : " << enemy1->drop;
+            //enemy1->drop = "";*/
+
+        //}
         scene.advance(); // Call advance to drive animation and collision detection
         enemy1->updatePosition(enemyTargetPos);
         enemyTargetPos = player1Ship->getPosition();
@@ -760,7 +789,10 @@ void MainWindow::initializeMultiplayerApplication()
 
     connect(&timer, &QTimer::timeout, this, [this]() {
         scene.advance(); // Call advance to drive animation and collision detection
+
         enemy1->updatePosition(enemyTargetPos);
+
+
         enemyTargetPos = player1Ship->getPosition();
         view->centerOn(player1Ship->getPosition());
         scene.update();
