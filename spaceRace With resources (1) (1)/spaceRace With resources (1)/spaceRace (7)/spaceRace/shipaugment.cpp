@@ -150,8 +150,8 @@ void shipAugment::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
         blasterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Idle.png");
 
         // Load images for thruster
-        thrusterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active.jpg");
-        thrusterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.jpg");
+        thrusterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active-modified.png");
+        thrusterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.png");
 
 
 

@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QtCore/QObject>
 #include <progressbar.h>
+#include <QImage>
 
 class playerShip : public QObject, public QGraphicsItem
 {
@@ -25,6 +26,7 @@ public:
     void takeDamage(int damage);
 
 private:
+    QImage playerShipImage;
     void checkForCollisions();
     QRectF slotRect(int slot);
 
