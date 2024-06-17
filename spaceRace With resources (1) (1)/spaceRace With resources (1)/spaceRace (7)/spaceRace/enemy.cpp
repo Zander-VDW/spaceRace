@@ -55,6 +55,8 @@ void enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWi
     setZValue(1);
 
     painter->setBrush(Qt::red);
+
+    augment.paint(painter, option, widget);
     // painter->drawEllipse(50, 10, 10, 10);
 }
 
@@ -192,9 +194,7 @@ void enemy::takeDamage(int damage) {
 }
 
 void enemy::die() {
-    // Handle the death of the enemy (e.g., remove from scene, play animation, etc.)
-    //scene()->removeItem(this);
-    //this->deleteLater(); // Assuming you want to delete the enemy object
+    augment.setDraggable(true);
     alive=false;
 }
 
