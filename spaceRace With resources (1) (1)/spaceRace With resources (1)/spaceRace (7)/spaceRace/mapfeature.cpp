@@ -5,15 +5,13 @@
 #include <enemy.h>
 #include <QString>
 #include <iostream>
-QString mapLog;
 
-bool isHost;
-mapFeature::mapFeature(const QRectF &bounds, bool host)
+mapFeature::mapFeature(const QRectF &bounds, QString seed)
     : sceneBounds(bounds) // Initialize scene bounds
 {
     srand(static_cast<unsigned>(time(0)));
     runCourse();
-    isHost = host;
+    mapLog = seed;
 }
 
 void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
