@@ -62,7 +62,7 @@ void shipAugment::setType(QString value)
     if (this->type == "Blaster")
     {
 
-            coolDown=1;
+            coolDown=0;
             this->burnTime=10000;
             damage=10;
             fireRate=300;

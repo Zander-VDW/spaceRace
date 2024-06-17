@@ -14,7 +14,7 @@ projectile::projectile(QPointF startPos, qreal angle)
 
     // Initialize timer with a 1 second delay (1000 milliseconds)
     collisionTimer.setSingleShot(true);
-    collisionTimer.setInterval(500); // 1000 milliseconds = 1 second
+    collisionTimer.setInterval(300); // 1000 milliseconds = 1 second
 
     // Connect timer to slot to enable collisions after timeout
     connect(&collisionTimer, &QTimer::timeout, this, &projectile::enableCollisions);
