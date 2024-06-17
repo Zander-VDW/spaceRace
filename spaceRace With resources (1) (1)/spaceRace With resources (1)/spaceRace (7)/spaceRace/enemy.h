@@ -25,6 +25,7 @@ public:
     bool isTouchingPath();
     void takeDamage(int damage);
     void die();
+    QString drop;
 
 
 
@@ -42,6 +43,8 @@ private:
 
      ProgressBar* healthBar;
      QImage enemyShip;
+     bool isAlive;
+
 };
 
 #endif // ENEMY_H

@@ -4,10 +4,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <iostream>
+#include <QDebug>
 //ENEMY AI HANDLER
-bool alive=true;
+
 enemy::enemy()
-    : speed(1), angle(0), health(1000)
+    : speed(1), angle(0), health(1000), isAlive(true), drop("")
 {
     // Initialize timers
     connect(&shootingTimer, &QTimer::timeout, this, &enemy::shootBlaster);
@@ -28,6 +29,7 @@ enemy::enemy()
     augment.setActive(true);    // Example active state
 
     enemyShip.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/ships/enemyShip.png");
+
 }
 
 enemy::~enemy()
@@ -74,7 +76,7 @@ bool yAllowed = true;
 
 void enemy::updatePosition(QPointF playerPos)
 {
-    if (alive==true){
+    if (isAlive==true){
     // Check if the enemy is currently touching the path
     bool onPath = isTouchingPath();
 
@@ -191,15 +193,16 @@ void enemy::takeDamage(int damage) {
     health -= damage;
     healthBar->setValue(health);
 
-    if (health <= 0) {
+    if (health <= 0 && isAlive ==true) {
         die();
         healthBar->setValue(0);
     }
 }
 
 void enemy::die() {
-    augment.setDraggable(true);
-    alive=false;
+    isAlive=false;
+    drop = augment.getType();
+    qDebug() << "DROP SET : " << this->drop;
 }
 
 void enemy::advance(int step)
@@ -210,7 +213,7 @@ void enemy::advance(int step)
 
 void enemy::shootBlaster()
 {
-    if (augment.getActive() && alive==true) {
+    if (augment.getActive() && isAlive==true) {
         // Create projectile at current position with specified angle
         projectile *proj = new projectile(QPointF(pos().x(),pos().y()), angle);
         scene()->addItem(proj);
@@ -256,7 +259,7 @@ bool enemy::isTouchingPath() {
 
     // Ensure viewPos is valid within the image bounds
     if (viewPos.x() >= image.width() || viewPos.y() >= image.height()) {
-        std::cout << "View position out of image bounds" << std::endl;
+    //    std::cout << "View position out of image bounds" << std::endl;
         return false;
     }
 

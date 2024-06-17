@@ -336,7 +336,7 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
 void playerShip::slotOneBurnFunction() {
     // Implementation of slot one burn functionality
     // Reset or stop the timer and deactivate the slot
-    std::cout << "Slot 1" << " BURNED" << std::endl;
+  //  std::cout << "Slot 1" << " BURNED" << std::endl;
     slotOne.deActivate();
     slot1BurnTimer.stop();
     slot1DelayTimer.start(slotOne.coolDown); // Assuming a cooldown period of 5 seconds
@@ -344,7 +344,7 @@ void playerShip::slotOneBurnFunction() {
 
 void playerShip::slotTwoBurnFunction() {
     // Implementation of slot two burn functionality
-    std::cout << "Slot 2" << " BURNED" << std::endl;
+//    std::cout << "Slot 2" << " BURNED" << std::endl;
     slotTwo.deActivate();
     slot2BurnTimer.stop();
     slot2DelayTimer.start(slotTwo.coolDown);
@@ -352,7 +352,7 @@ void playerShip::slotTwoBurnFunction() {
 
 void playerShip::slotThreeBurnFunction() {
     // Implementation of slot three burn functionality
-    std::cout << "Slot 3" << " BURNED" << std::endl;
+   // std::cout << "Slot 3" << " BURNED" << std::endl;
     slotThree.deActivate();
     slot3BurnTimer.stop();
     slot3DelayTimer.start(slotThree.coolDown);
@@ -360,7 +360,7 @@ void playerShip::slotThreeBurnFunction() {
 
 void playerShip::slotFourBurnFunction() {
     // Implementation of slot four burn functionality
-    std::cout << "Slot 4" << " BURNED" << std::endl;
+  //  std::cout << "Slot 4" << " BURNED" << std::endl;
     slotFour.deActivate();
     slot4BurnTimer.stop();
     slot4DelayTimer.start(slotFour.coolDown);
@@ -375,7 +375,7 @@ void playerShip::slotOneCooldown() {
 
 void playerShip::slotTwoCooldown() {
     // Reactivate slot two after cooldown
-    std::cout << "Slot 2" << " COOLED" << std::endl;
+ //   std::cout << "Slot 2" << " COOLED" << std::endl;
     slotTwo.toggleActivatable(true);
     slot2DelayTimer.stop();
 }
@@ -389,7 +389,7 @@ void playerShip::slotThreeCooldown() {
 
 void playerShip::slotFourCooldown() {
     // Reactivate slot four after cooldown
-    std::cout << "Slot 4" << " COOLED" << std::endl;
+  //  std::cout << "Slot 4" << " COOLED" << std::endl;
     slotFour.toggleActivatable(true);
     slot4DelayTimer.stop();
 }
@@ -442,7 +442,7 @@ void playerShip::checkForCollisions() {
             // Check each slot's rectangle for collision
             for (int i = 1; i <= 4; ++i) {
                 if (slotRect(i).contains(augment->pos())) {
-                    std::cout << "Collision detected between augment and slot: " << augment->getType().toStdString() << " and slot " << i << std::endl;
+                //    std::cout << "Collision detected between augment and slot: " << augment->getType().toStdString() << " and slot " << i << std::endl;
                     switch (i) {
                     case 1:
                         slotOne.setSlot(1);
@@ -486,19 +486,19 @@ void playerShip::moveFunc()
     speed = defaultSpeed;
     if (slotOne.getType() == "Thruster" && slotOne.getActive() == true) {
         // Action for slot one
-        std::cout << "Thruster Active in Slot 1" << std::endl;
+      //  std::cout << "Thruster Active in Slot 1" << std::endl;
         speed = speed + slotOne.speedBoost;
     }
 
     if (slotTwo.getType() == "Thruster" && slotTwo.getActive() == true) {
         // Action for slot two
-        std::cout << "Thruster Active in Slot 2" << std::endl;
+     //   std::cout << "Thruster Active in Slot 2" << std::endl;
         speed = speed + slotTwo.speedBoost;
     }
 
     if (slotThree.getType() == "Thruster" && slotThree.getActive() == true) {
         // Action for slot three
-        std::cout << "Thruster Active in Slot 3" << std::endl;
+     //   std::cout << "Thruster Active in Slot 3" << std::endl;
         speed = speed + slotThree.speedBoost;
     }
 
@@ -584,7 +584,7 @@ bool playerShip::isTouchingPath() {
   QColor pixelColor = image.pixelColor(center);
 
   // Check if the pixel color matches the path color (130, 135, 144)
-  std::cout << "Is touching : " << pixelColor.red() << " " << pixelColor.green() << " " << pixelColor.blue() << std::endl;
+  //std::cout << "Is touching : " << pixelColor.red() << " " << pixelColor.green() << " " << pixelColor.blue() << std::endl;
   /*if(pixelColor==QColor(0, 0, 0))
   {
      std::cout << "POS: Y - > " << this->getPosition().y() << std::endl;

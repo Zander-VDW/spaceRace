@@ -571,9 +571,13 @@ void MainWindow::initializeApplication()
     view->setParent(this);
 
 
+
     player1Ship = new playerShip();
     enemy1 = new enemy();
+       if(enemy1->drop == ""){
 
+
+       }
 
     QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
 
@@ -654,6 +658,16 @@ void MainWindow::initializeApplication()
     timer.setInterval(1); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
+        if(enemy1->drop == "Blaster"){
+
+            shipAugment *augment1 = new shipAugment();
+            augment1->setPos(enemy1->pos());
+            augment1->setType("Blaster");
+            scene.addItem(augment1);
+            qDebug() << "added drop : " << enemy1->drop;
+            enemy1->drop = "";
+
+        }
         scene.advance(); // Call advance to drive animation and collision detection
         enemy1->updatePosition(enemyTargetPos);
         enemyTargetPos = player1Ship->getPosition();
