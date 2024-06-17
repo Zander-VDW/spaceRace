@@ -12,6 +12,7 @@ mapFeature::mapFeature(const QRectF &bounds, QString seed)
     srand(static_cast<unsigned>(time(0)));
     runCourse();
     mapLog = seed;
+    this->runCourse();
 }
 
 void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
@@ -37,7 +38,8 @@ QRectF mapFeature::boundingRect() const {
 
 void mapFeature::runCourse()
 {
-    if(isHost==true){
+    if(mapLog.contains("HOST")){
+        std::cout << "HOSTING PA" << std::endl;
     QPointF penPoint = QPointF(-150, -150);
     int length = 300;
     QSize size = QSize(300, 300);

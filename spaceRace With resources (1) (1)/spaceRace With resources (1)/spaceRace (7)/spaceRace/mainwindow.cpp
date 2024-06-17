@@ -576,7 +576,7 @@ void MainWindow::initializeApplication()
     player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     scene.addItem(player1Ship);
 
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "");
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "HOST");
     scene.addItem(feature1);
 
     enemyTargetPos = player1Ship->getPosition();
@@ -681,7 +681,7 @@ void MainWindow::initializeMultiplayerApplication()
     player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     scene.addItem(player1Ship);
 
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "");
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "HOST");
     scene.addItem(feature1);
 
     enemyTargetPos = player1Ship->getPosition();
