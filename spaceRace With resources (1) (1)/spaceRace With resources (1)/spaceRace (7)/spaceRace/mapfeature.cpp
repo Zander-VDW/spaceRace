@@ -38,17 +38,18 @@ QRectF mapFeature::boundingRect() const {
 
 void mapFeature::runCourse()
 {
-    if(mapLog.contains("HOST")){
-        std::cout << "HOSTING PA" << std::endl;
     QPointF penPoint = QPointF(-150, -150);
     int length = 300;
     QSize size = QSize(300, 300);
     char direction = 'd';
     int random;
+    QRectF bounds = boundingRect();
+
+    if(mapLog.contains("HOST")){
+        std::cout << "HOSTING PA" << std::endl;
+    penPoint = QPointF(-150, -150);
 
     rectangles.clear(); // Clear previous rectangles if any
-
-    QRectF bounds = boundingRect();
 
     for (int i = 0; i < length; ++i)
     {
@@ -107,5 +108,32 @@ void mapFeature::runCourse()
             continue;
         }
     }
+    } else {
+        std::cout << "USING SEED" << std::endl;
+                for (QChar dir : mapLog) {
+                    QPointF newPoint = penPoint;
+
+                    if (dir == 'w') {
+                        newPoint.setY(penPoint.y() - size.height());
+                    }
+                    else if (dir == 'a') {
+                        newPoint.setX(penPoint.x() - size.width());
+                    }
+                    else if (dir == 's') {
+                        newPoint.setY(penPoint.y() + size.height());
+                    }
+                    else if (dir == 'd') {
+                        newPoint.setX(penPoint.x() + size.width());
+                    }
+
+                    // Check if new point is within bounds
+                    if (bounds.contains(newPoint)) {
+                        penPoint = newPoint;
+                        rectangles.append(QRectF(penPoint, size));
+                    } else {
+                        // Optionally handle out-of-bounds case
+                        continue;
+                    }
     }
-}
+
+}}
