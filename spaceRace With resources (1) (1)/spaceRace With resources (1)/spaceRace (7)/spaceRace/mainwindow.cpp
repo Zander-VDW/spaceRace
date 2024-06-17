@@ -581,7 +581,7 @@ void MainWindow::initializeApplication()
         qDebug() << "Failed to load background image file";
     }
 
-    QBrush backgroundBrush(Qt::blue);//asteroidTiles
+    QBrush backgroundBrush(Qt::black);//asteroidTiles
     scene.setBackgroundBrush(backgroundBrush);
 
     QScreen *screen = QGuiApplication::primaryScreen();
@@ -686,7 +686,7 @@ void MainWindow::initializeMultiplayerApplication()
         qDebug() << "Failed to load background image file";
     }
 
-    QBrush backgroundBrush(Qt::blue);//asteroidTiles
+    QBrush backgroundBrush(Qt::black);//asteroidTiles
     scene.setBackgroundBrush(backgroundBrush);
 
     QScreen *screen = QGuiApplication::primaryScreen();

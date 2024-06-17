@@ -240,7 +240,7 @@ bool enemy::isTouchingPath() {
     // Ensure the view position is within the bounds of the view (optional)
     if (viewPos.x() < 0 || viewPos.y() < 0 ||
             viewPos.x() >= view->width() || viewPos.y() >= view->height()) {
-        std::cout << "Out of view bounds" << std::endl;
+        //std::cout << "Out of view bounds" << std::endl;
         speed = 0;
         return false; // Out of view bounds, assume not touching path
     } else {
