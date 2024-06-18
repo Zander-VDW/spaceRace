@@ -27,13 +27,15 @@ public:
     void advance(int phase) override;
     void takeDamage(int damage);
     QString projectileLog;
+    QString shipLog;
+    qreal angle; // Ship's angle
 
 private:
     QImage playerShipImage;
     void checkForCollisions();
     QRectF slotRect(int slot);
 
-    qreal angle; // Ship's angle
+
     QPointF pos; // Ship's position
     qreal defaultSpeed; // Ship's default speed
 

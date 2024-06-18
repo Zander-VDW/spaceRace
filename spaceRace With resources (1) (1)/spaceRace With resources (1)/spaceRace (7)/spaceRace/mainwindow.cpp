@@ -837,7 +837,7 @@ void MainWindow::initializeMultiplayerApplication()
 
 void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
 {
-    QString dataType = "zandersuperfunctionDataRecieved";
+    QString dataType = "zandersuperfunctionDataRecieved PROJ";
     if (data.startsWith(dataType)) {
         QStringList parts = data.mid(dataType.length()).trimmed().split(' ');
         if (parts.size() >= 3) {
@@ -856,8 +856,31 @@ void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
             qDebug() << "Invalid data format received:" << data;
         }
     } else {
-        qDebug() << "Unexpected data received:" << data;
+        dataType = "shipPos: ";
+        if (data.startsWith(dataType)) {
+            QStringList parts = data.mid(dataType.length()).trimmed().split(' ');
+            if (parts.size() >= 3) {
+                QString posX = parts[0];
+                QString posY = parts[1];
+                QString angle = parts[2];
+
+                QPointF shipPos(posX.toInt(),posY.toInt());
+                int intAngle = angle.toInt();
+
+                player2Ship->setPos(shipPos);
+                player2Ship->angle=intAngle;
+
+                qDebug() << "Ship data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+            } else {
+                qDebug() << "Invalid data format received:" << data;
+            }
+        } else {
+            qDebug() << "Unexpected data received:" << data;
+        }
     }
+
+
+
 }
 
 

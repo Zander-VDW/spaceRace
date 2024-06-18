@@ -178,7 +178,7 @@ void playerShip::shootBlaster() {
      projectile *proj;
     if (slotOne.getType() == "Blaster" && slotOne.getActive()) {
         proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
         projectileLog += QString::number(proj->pos.x());
         projectileLog += " ";
         projectileLog +=  QString::number(proj->pos.y());
@@ -188,7 +188,7 @@ void playerShip::shootBlaster() {
     }
     if (slotTwo.getType() == "Blaster" && slotTwo.getActive()) {
         proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
         projectileLog += QString::number(proj->pos.x());
         projectileLog += " ";
         projectileLog +=  QString::number(proj->pos.y());
@@ -198,7 +198,7 @@ void playerShip::shootBlaster() {
     }
     if (slotThree.getType() == "Blaster" && slotThree.getActive()) {
         proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
         projectileLog += QString::number(proj->pos.x());
         projectileLog += " ";
         projectileLog +=  QString::number(proj->pos.y());
@@ -506,6 +506,7 @@ void playerShip::checkForCollisions() {
 void playerShip::advance(int step) {
     if (!step) return;
     checkForCollisions();
+    shipLog = "shipPos: " + QString::number(this->getPosition().x()) + " " + QString::number(this->getPosition().y())+ " " + angle;
 }
 
 int speed;
