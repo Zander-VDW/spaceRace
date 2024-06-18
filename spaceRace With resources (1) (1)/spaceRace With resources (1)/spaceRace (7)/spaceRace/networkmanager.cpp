@@ -88,9 +88,9 @@ void NetworkManager::stopBroadcasting()
 void NetworkManager::broadcastGameAvailability()
 {
 
-        QByteArray data = "GAME_AVAILABLE";
-        udpSocket->writeDatagram(data, QHostAddress::Broadcast, 12345);
-        qDebug() << "Broadcasting game availability:" << data;
+    QByteArray data = "GAME_AVAILABLE";
+    udpSocket->writeDatagram(data, QHostAddress::Broadcast, 12345);
+    qDebug() << "Broadcasting game availability:" << data;
 
 }
 
@@ -132,7 +132,7 @@ void NetworkManager::processPendingDatagrams()
         QNetworkDatagram datagram = udpSocket->receiveDatagram();
         QString message = QString::fromUtf8(datagram.data());
         QString senderAddress = datagram.senderAddress().toString();
-         QByteArray receivedData = datagram.data();
+        QByteArray receivedData = datagram.data();
 
         qDebug() << "Received datagram from" << senderAddress << ":" << message;
 
@@ -178,12 +178,14 @@ void NetworkManager::processPendingDatagrams()
                 emit handshakeRejected();
             }} else {
 
-                if (message.contains("zandersuperfunctionDataRecieved")){
-                    emit zandersuperfunctionDataRecieved(message);
-                }
+            if (message.contains("zandersuperfunctionDataRecieved")){
+                emit zandersuperfunctionDataRecieved(message);
+            } else {
                 qDebug() << "Unexpected message from" << senderAddress << ":" << message;
-                emit connectionError("Unexpected message from " + senderAddress);
-            }
+                emit connectionError("Unexpected message from " + senderAddress);}
+
+
         }
     }
+}
 

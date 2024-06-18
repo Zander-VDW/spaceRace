@@ -14,6 +14,7 @@
 #include "shipAugment.h"
 #include "projectile.h"
 #include <progressbar.h>
+#include <QDebug>
 
 int imageAngle;
 playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1000), maxHealth(1000), isAlive(true) {
@@ -21,7 +22,7 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1
     //this->highlightedSlot = 1;
 
     connect(&moveTimer, &QTimer::timeout, this, &playerShip::moveFunc);
-    moveTimer.start(20);
+    moveTimer.start(17);
 
     connect(&shootingTimer, &QTimer::timeout, this, &playerShip::shootBlaster);
     shootingTimer.start(100); //adjusted for firerate
@@ -67,7 +68,7 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1
     coolDownBar4->setValue(3000);
     coolDownBar4->setPos(-50,50);
 
-    playerShipImage.load("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/ships/playerShip.png");
+    playerShipImage.load("://spaceRaceREII313/ships/playerShip.png");
 }
 
 QRectF playerShip::boundingRect() const {
@@ -174,48 +175,54 @@ void playerShip::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     setZValue(2);
 }
 
+int blasterDiv=5;
 void playerShip::shootBlaster() {
+    shipLog = QString::number(this->getPosition().x()) + " " + QString::number(this->getPosition().y())+ " " +  QString::number(angle);
+
+    blasterDiv--;
+    if(blasterDiv==0){
      projectile *proj;
     if (slotOne.getType() == "Blaster" && slotOne.getActive()) {
         proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
-        projectileLog += QString::number(proj->pos.x());
-        projectileLog += " ";
-        projectileLog +=  QString::number(proj->pos.y());
-        projectileLog += " ";
-        projectileLog += QString::number(proj->angle);
+        shipLog += " ";
+        shipLog += QString::number(proj->pos.x());
+        shipLog += " ";
+        shipLog +=  QString::number(proj->pos.y());
+        shipLog += " ";
+        shipLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotTwo.getType() == "Blaster" && slotTwo.getActive()) {
-        proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
-        projectileLog += QString::number(proj->pos.x());
-        projectileLog += " ";
-        projectileLog +=  QString::number(proj->pos.y());
-        projectileLog += " ";
-        projectileLog += QString::number(proj->angle);
+        proj = new projectile(slotRect(2).center(), angle);
+        shipLog += " ";
+        shipLog += QString::number(proj->pos.x());
+        shipLog += " ";
+        shipLog +=  QString::number(proj->pos.y());             //WRONG MOVE STRING STUFF TO IF ELSE FOR MORE THAN ONE GUN AT TIME
+        shipLog += " ";
+        shipLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotThree.getType() == "Blaster" && slotThree.getActive()) {
-        proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved PROJ ";
-        projectileLog += QString::number(proj->pos.x());
-        projectileLog += " ";
-        projectileLog +=  QString::number(proj->pos.y());
-        projectileLog += " ";
-        projectileLog += QString::number(proj->angle);
-        projectileLog += QString::number(proj->angle);
+        proj = new projectile(slotRect(3).center(), angle);
+        shipLog += " ";
+        shipLog += QString::number(proj->pos.x());
+        shipLog += " ";
+        shipLog +=  QString::number(proj->pos.y());
+        shipLog += " ";
+        shipLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotFour.getType() == "Blaster" && slotFour.getActive()) {
-        proj = new projectile(slotRect(1).center(), angle);
-        projectileLog += "zandersuperfunctionDataRecieved ";
-        projectileLog += QString::number(proj->pos.x());
-        projectileLog += " ";
-        projectileLog +=  QString::number(proj->pos.y());
-        projectileLog += " ";
-        projectileLog += QString::number(proj->angle);
+        proj = new projectile(slotRect(4).center(), angle);
+        shipLog += " ";
+        shipLog += QString::number(proj->pos.x());
+        shipLog += " ";
+        shipLog +=  QString::number(proj->pos.y());
+        shipLog += " ";
+        shipLog += QString::number(proj->angle);
         scene()->addItem(proj);
+    }
+    blasterDiv=5;
     }
 
     /* projectileLog += "  X: ";
@@ -228,11 +235,7 @@ void playerShip::shootBlaster() {
 
 
     //qDebug() << projectileLog;
-    logFinger++;
-    if (logFinger > 100) {
-        logFinger = 0;
-        projectileLog.clear();//clear proejectile array if necessary
-    }
+
     //std::cout << "Painting playerShip at position: (" << pos.x() << ", " << pos.y() << ")" << std::endl;
 }
 
@@ -277,7 +280,7 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
                         //slot1BurnTimer.start(slotOne.burnTime);
                     } else if (slotOne.getType() == "Blaster") {
                         if (!slotOne.isActive()) {
-                            shootBlaster();
+                            //shootBlaster();
                         }
                     } else if (slotOne.getType() == "Thruster") {
                         slotOne.Activate();
@@ -301,7 +304,7 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
                         //slot2BurnTimer.start(slotTwo.burnTime);
                     } else if (slotTwo.getType() == "Blaster") {
                         if (!slotTwo.isActive()) {
-                            shootBlaster();
+                          //  shootBlaster();
                         }
                     } else if (slotTwo.getType() == "Thruster") {
                         slotTwo.Activate();
@@ -325,7 +328,7 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
                         //slot3BurnTimer.start(slotThree.burnTime);
                     } else if (slotThree.getType() == "Blaster") {
                         if (!slotThree.isActive()) {
-                            shootBlaster();
+                           // shootBlaster();
                         }
                     } else if (slotThree.getType() == "Thruster") {
                         slotThree.Activate();
@@ -349,7 +352,7 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
                         //slot4BurnTimer.start(slotFour.burnTime);
                     } else if (slotFour.getType() == "Blaster") {
                         if (!slotFour.isActive()) {
-                            shootBlaster();
+                           // shootBlaster();
                         }
                     } else if (slotFour.getType() == "Thruster") {
                         slotFour.Activate();
@@ -403,7 +406,7 @@ void playerShip::slotFourBurnFunction() {
 
 void playerShip::slotOneCooldown() {
     // Reactivate slot one after cooldown
-    std::cout << "Slot 1" << " COOLED" << std::endl;
+   // std::cout << "Slot 1" << " COOLED" << std::endl;
     slotOne.toggleActivatable(true);
     slot1DelayTimer.stop();
 }
@@ -417,7 +420,7 @@ void playerShip::slotTwoCooldown() {
 
 void playerShip::slotThreeCooldown() {
     // Reactivate slot three after cooldown
-    std::cout << "Slot 3" << " COOLED" << std::endl;
+  //  std::cout << "Slot 3" << " COOLED" << std::endl;
     slotThree.toggleActivatable(true);
     slot3DelayTimer.stop();
 }
@@ -506,8 +509,6 @@ void playerShip::checkForCollisions() {
 void playerShip::advance(int step) {
     if (!step) return;
     checkForCollisions();
-    shipLog = "shipPos: " + QString::number(this->getPosition().x()) + " " + QString::number(this->getPosition().y())+ " " + angle;
-    qDebug() << shipLog;
 }
 
 int speed;

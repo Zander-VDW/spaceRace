@@ -28,7 +28,7 @@ enemy::enemy()
     augment.setType("Blaster"); // Example type
     augment.setActive(true);    // Example active state
 
-    enemyShip.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/ships/enemyShip.png");
+    enemyShip.load("://spaceRaceREII313/ships/enemyShip.png");
 
 }
 

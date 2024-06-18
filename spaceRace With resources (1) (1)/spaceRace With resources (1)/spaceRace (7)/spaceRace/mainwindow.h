@@ -132,6 +132,9 @@ private:
         playerShip *player1Ship;
         playerShip *player2Ship;
         enemy *enemy1;
+        enemy *enemy2;
+        enemy *enemy3;
+        enemy *enemy4;
         QPointF enemyTargetPos;
 //    void player2mapseed(const QString &codeword, const QString &mapseed);
 

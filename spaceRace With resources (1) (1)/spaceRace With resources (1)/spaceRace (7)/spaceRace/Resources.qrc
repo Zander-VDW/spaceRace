@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/">
+        <file>spaceRaceREII313/resources.qrc</file>
+        <file>spaceRaceREII313/Augments/blaster1Active.png</file>
+        <file>spaceRaceREII313/Augments/blaster1Idle.png</file>
+        <file>spaceRaceREII313/Augments/shieldGeneratorIdle.jpg</file>
+        <file>spaceRaceREII313/Augments/thruster_Active.jpg</file>
+        <file>spaceRaceREII313/Augments/thruster_Active-modified.png</file>
+        <file>spaceRaceREII313/Augments/thruster_Active-old.png</file>
+        <file>spaceRaceREII313/Augments/thruster_Idle.png</file>
+        <file>spaceRaceREII313/AugmentsExtra/blaster_active.jpg</file>
+        <file>spaceRaceREII313/AugmentsExtra/blaster_idle.jpg</file>
+        <file>spaceRaceREII313/AugmentsExtra/shieldGeneratorIdle.jpg</file>
+        <file>spaceRaceREII313/AugmentsExtra/spaceGun-modified.png</file>
+        <file>spaceRaceREII313/mapElements/customAsteroidBack.png</file>
+        <file>spaceRaceREII313/mapElements/multiMazeTile.png</file>
+        <file>spaceRaceREII313/mapElements/rainbowImages.jpg</file>
+        <file>spaceRaceREII313/mapElements/starryBackground.jpg</file>
+        <file>spaceRaceREII313/menus/background.mp3</file>
+        <file>spaceRaceREII313/menus/buttonclick.mp3</file>
+        <file>spaceRaceREII313/menus/mainmenuscreen2.jpg</file>
+        <file>spaceRaceREII313/menus/ROGFont.ttf</file>
+        <file>spaceRaceREII313/menus/scores.txt</file>
+        <file>spaceRaceREII313/ships/enemyShip.png</file>
+        <file>spaceRaceREII313/ships/playerShip.png</file>
+    </qresource>
+</RCC>

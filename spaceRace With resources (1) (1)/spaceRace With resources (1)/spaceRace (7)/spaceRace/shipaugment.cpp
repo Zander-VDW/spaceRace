@@ -146,12 +146,12 @@ void shipAugment::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 
         // Load images for blaster
-        blasterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Active.png");
-        blasterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/blaster1Idle.png");
+        blasterActive.load("://spaceRaceREII313/Augments/blaster1Active.png");
+        blasterIdle.load("://spaceRaceREII313/Augments/blaster1Idle.png");
 
         // Load images for thruster
-        thrusterActive.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Active-modified.png");
-        thrusterIdle.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/Augments/thruster_Idle.png");
+        thrusterActive.load(":/spaceRaceREII313/Augments/thruster_Active-modified.png");
+        thrusterIdle.load("://spaceRaceREII313/Augments/thruster_Idle.png");
 
 
 

@@ -1,20 +1,31 @@
 <RCC>
     <qresource prefix="/">
-        <file>Augments/blaster_active.jpg</file>
-        <file>Augments/blaster_idle.jpg</file>
+        <file>Augments/blaster1Active.png</file>
+        <file>Augments/blaster1Idle.png</file>
         <file>Augments/shieldGeneratorIdle.jpg</file>
-        <file>Augments/spaceGun-modified.png</file>
         <file>Augments/thruster_Active.jpg</file>
-        <file>Augments/thruster_Idle.jpg</file>
-        <file>mapFeature/asteroidBackGroundTilesBlue.jpg</file>
-        <file>mapFeature/rainbowImages.jpg</file>
-        <file>mapFeature/starryBackground.jpg</file>
+        <file>Augments/thruster_Active-modified.png</file>
+        <file>Augments/thruster_Active-old.png</file>
+        <file>Augments/thruster_Idle.png</file>
+        <file>AugmentsExtra/blaster_active.jpg</file>
+        <file>AugmentsExtra/blaster_idle.jpg</file>
+        <file>AugmentsExtra/shieldGeneratorIdle.jpg</file>
+        <file>AugmentsExtra/spaceGun-modified.png</file>
+        <file>mapElements/customAsteroidBack.png</file>
+        <file>mapElements/multiMazeTile.png</file>
+        <file>mapElements/rainbowImages.jpg</file>
+        <file>mapElements/starryBackground.jpg</file>
         <file>menus/background.mp3</file>
         <file>menus/buttonclick.mp3</file>
-        <file>menus/mainmenuscreen.jpg</file>
-        <file>menus/multiplayer.png</file>
+        <file>menus/mainmenuscreen2.jpg</file>
         <file>menus/ROGFont.ttf</file>
         <file>menus/scores.txt</file>
-        <file>menus/singleplayer.png</file>
+        <file>ships/enemyShip.jpeg</file>
+        <file>ships/enemyShip.png</file>
+        <file>ships/playerShip.jpeg</file>
+        <file>ships/playerShip.png</file>
+        <file>ships/playerShip-modified.png</file>
+        <file>ships/playerShip-noNum.png</file>
+        <file>mainmenuscreen.jpg</file>
     </qresource>
 </RCC>

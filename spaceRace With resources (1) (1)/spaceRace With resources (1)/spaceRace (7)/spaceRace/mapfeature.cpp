@@ -21,9 +21,9 @@ void mapFeature::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     setZValue(0);
     painter->save();
 
-    //QImage tileImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/rainbowImages.jpg");
-    //QBrush brush(tileImage);
-    //painter->setBrush(brush);
+    QImage tileImage(":/spaceRaceREII313/mapElements/rainbowImages.jpg");
+    QBrush brush(tileImage);
+    painter->setBrush(brush);
 
     for (const QRectF &rect : rectangles) {
         painter->drawRect(rect);

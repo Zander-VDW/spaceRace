@@ -26,7 +26,7 @@ public:
     void updateSlot(QString value);
     void advance(int phase) override;
     void takeDamage(int damage);
-    QString projectileLog;
+
     QString shipLog;
     qreal angle; // Ship's angle
 
@@ -48,7 +48,6 @@ private:
     QRectF slotRect2;
     QRectF slotRect3;
     QRectF slotRect4;
-    int logFinger;
 
 
 

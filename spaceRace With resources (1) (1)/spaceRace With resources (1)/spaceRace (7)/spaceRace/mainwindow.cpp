@@ -37,10 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
     int screenHeight = screenGeometry.height();
     buttonWidth = screenWidth * 0.2;
 
-    QPixmap backgroundPixmap("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mainmenuscreen.jpg");
-    backgroundLabel->setPixmap(backgroundPixmap);
-    backgroundLabel->setFixedSize(screenWidth+1, screenHeight+1);
-    backgroundLabel->lower();
+//    QPixmap backgroundPixmap("://spaceRaceREII313/menus/mainmenuscreen2.jpg");
+//    backgroundLabel->setPixmap(backgroundPixmap);
+//    backgroundLabel->setFixedSize(screenWidth+1, screenHeight+1);
+//    backgroundLabel->lower();
 
 
 
@@ -61,8 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     //showGameover();
     //startGame();
 
-    changeBackgroundMusic("qrc:C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/background.mp3");
-    buttonClickSound->setSource(QUrl(":C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/buttonclick.mp3"));
+    changeBackgroundMusic("://spaceRaceREII313/menus/background.mp3");
+    buttonClickSound->setSource(QUrl("://spaceRaceREII313/menus/buttonclick.mp3"));
     buttonClickSound->setVolume(1.00);
 
     // Connect network manager signals
@@ -222,7 +222,7 @@ void MainWindow::showGameover()
 
 void MainWindow::setupMainMenu()
 {
-    QLabel *gameNameLabel = new QLabel("Game Name", mainMenuWidget);
+    QLabel *gameNameLabel = new QLabel("Spacerace", mainMenuWidget);
     QFont font = gameNameLabel->font();
     font.setPointSize(screenWidth*0.1);
     font.setBold(true);    // Set the font to bold
@@ -286,7 +286,7 @@ void MainWindow::processScoreEntry(QLineEdit *nameInput, int currentScore, QVect
 
         // Debugging save to file
         qDebug() << "Saving scores to file";
-        saveScoresToFile("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt", scores);  // Ensure writable file path
+        saveScoresToFile("://menus/scores.txt", scores);  // Ensure writable file path
         qDebug() << "Scores saved to file";
 
         // Debugging label update
@@ -331,7 +331,7 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     layout->addWidget(gameOverLabel);
 
     // Read scores from a text file
-    QVector<ScoreEntry> scores = readScoresFromFile("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt");  // Ensure writable file path
+    QVector<ScoreEntry> scores = readScoresFromFile("://spaceRaceREII313/menus/scores.txt");  // Ensure writable file path
     std::sort(scores.begin(), scores.end(), [](const ScoreEntry &a, const ScoreEntry &b) {
         return a.score > b.score;
     });
@@ -477,7 +477,7 @@ void MainWindow::saveScore()
 
     QString scoreEntry = QString("%1,%2,%3\n").arg(playerName).arg(currentScore).arg(timestamp);
 
-    QFile file("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt");
+    QFile file("://spaceRaceREII313/menus/scores.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         out << scoreEntry;
@@ -556,7 +556,7 @@ QString MainWindow::hostMapGenerator()
 {
     ////if player 1 run this
     ///
-    QString seed = "wasdwadsdwasdsadwwwwwwsdawdsadwad";
+    QString seed = "wasdwadsddddddddddddddaaaaaaaaaaaawwwwwwwwwwwwwwwdddddddddddaaaaaaaaasssssssssssswwwwwwwwwwwwwwddddddddsadwsadwsssssssssssswwwwwddddddddddaaaaaaaaaaawwwwwwwwwwsssssssssddddddddddddddddwdssssssssssssssaaaaaaaaaaawwwwwwddddddddddwwwwwwwwwaaaaaaaawwwwwwddddddwasdwasdsssssssssssssssssssssadwwwwwwsdasssssssssssssssssaaaaaaaaaaaaaaaawdsadwad";
     return seed;
 }
 
@@ -580,18 +580,21 @@ void MainWindow::initializeApplication()
 
     player1Ship = new playerShip();
     enemy1 = new enemy();
+    enemy2 = new enemy();
+    enemy3 = new enemy();
+    enemy4 = new enemy();
     /*if(enemy1->drop == ""){
 
 
        }*/
 
-    QImage asteroidTiles = QImage("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mapElements/multiMazeTile.png");
+    QImage asteroidTiles = QImage(":/spaceRaceREII313/mapElements/customAsteroidBack.png");
 
     if (asteroidTiles.isNull()) {
         qDebug() << "Failed to load background image file";
     }
 
-    QBrush backgroundBrush(Qt::black);//asteroidTiles
+    QBrush backgroundBrush(asteroidTiles);//asteroidTiles
     scene.setBackgroundBrush(backgroundBrush);
 
     QScreen *screen = QGuiApplication::primaryScreen();
@@ -617,8 +620,26 @@ void MainWindow::initializeApplication()
 
     enemyTargetPos = player1Ship->getPosition();
 
-    enemy1->setPos(100, 100);
+    enemy1->setPos(300, 300);
     scene.addItem(enemy1);
+
+    enemy2->setPos(400, 400);
+    scene.addItem(enemy2);
+
+    enemy3->setPos(500, 500);
+    scene.addItem(enemy3);
+
+    enemy4->setPos(600,600);
+    scene.addItem(enemy4);
+
+   /* enemy2->setPos(300, 300);
+    scene.addItem(enemy2);
+
+    enemy3->setPos(300, 300);
+    scene.addItem(enemy3);
+
+    enemy4->setPos(300, 300);
+    scene.addItem(enemy4);*/
 
     // Create and add shipAugment instances
     shipAugment *augment1 = new shipAugment();
@@ -661,7 +682,7 @@ void MainWindow::initializeApplication()
     view->resize(viewWidth, viewHeight); // Set window size
     view->centerOn(player1Ship->getPosition());
 
-    timer.setInterval(1); // Update every millisecond
+    timer.setInterval(5); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
         if(enemy1->drop == "Blaster"){
@@ -676,6 +697,10 @@ void MainWindow::initializeApplication()
         }
         scene.advance(); // Call advance to drive animation and collision detection
         enemy1->updatePosition(enemyTargetPos);
+        enemy2->updatePosition(enemyTargetPos);
+        enemy3->updatePosition(enemyTargetPos);
+        enemy4->updatePosition(enemyTargetPos);
+
         enemyTargetPos = player1Ship->getPosition();
         view->centerOn(player1Ship->getPosition());
         scene.update();
@@ -698,13 +723,13 @@ void MainWindow::initializeMultiplayerApplication()
     player1Ship = new playerShip();
     player2Ship = new playerShip(); // Create a second player ship
 
-    QImage asteroidTiles = QImage("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mapElements/multiMazeTile.png");
+    QImage asteroidTiles = QImage(":/spaceRaceREII313/mapElements/customAsteroidBack.png");
 
     if (asteroidTiles.isNull()) {
         qDebug() << "Failed to load background image file";
     }
 
-    QBrush backgroundBrush(Qt::black); // asteroidTiles
+    QBrush backgroundBrush(asteroidTiles); // asteroidTiles
     scene.setBackgroundBrush(backgroundBrush);
 
     QScreen *screen = QGuiApplication::primaryScreen();
@@ -733,7 +758,7 @@ void MainWindow::initializeMultiplayerApplication()
 
     // Position the ships
     player1Ship->setPos(0, 0);
-    player2Ship->setPos(300, 300); // Example position, adjust as needed
+    player2Ship->setPos(0, 0); // Example position, adjust as needed
 
     mapFeature *feature1 = new mapFeature(scene.sceneRect(), mapSeed);
     scene.addItem(feature1);
@@ -765,8 +790,9 @@ void MainWindow::initializeMultiplayerApplication()
     scene.addItem(augment5);
 
     // Set focus to the player ship based on the player variable
-    player1Ship->setFlag(QGraphicsItem::ItemIsFocusable);
-    player2Ship->setFlag(QGraphicsItem::ItemIsFocusable);
+    if(player == 1){
+    player1Ship->setFlag(QGraphicsItem::ItemIsFocusable);} else if(player==2){
+    player2Ship->setFlag(QGraphicsItem::ItemIsFocusable);}
 
     // Debugging output
     qDebug() << "Player value: " << player;
@@ -791,24 +817,17 @@ void MainWindow::initializeMultiplayerApplication()
     view->resize(viewWidth, viewHeight);
 
     // Center the view on the appropriate player ship
-    if (player == 1) {
-        view->centerOn(player1Ship->getPosition());
-        qDebug() << "Centered on player 1 ship at position: " << player1Ship->getPosition();
-    } else if (player == 2) {
-        view->centerOn(player2Ship->getPosition());
-        qDebug() << "Centered on player 2 ship at position: " << player2Ship->getPosition();
-    }
 
-    timer.setInterval(1); // Update every millisecond
+    timer.setInterval(5); // Update every millisecond //5
 
     connect(&timer, &QTimer::timeout, this, [this]() {
         scene.advance(); // Call advance to drive animation and collision detection
         // Center the view on the appropriate player ship
         //preparezandersuperfunctionDatatosendtherplayer();
-        if (this->player == 1) {
-            view->centerOn(this->player1Ship->getPosition());
-        } else if (this->player == 2) {
-            view->centerOn(this->player2Ship->getPosition());
+        if (player == 1) {
+            view->centerOn(player1Ship);
+        } else if (player == 2) {
+            view->centerOn(player2Ship);
         }
         scene.update();
         preparezandersuperfunctionDatatosendtherplayer();
@@ -837,13 +856,30 @@ void MainWindow::initializeMultiplayerApplication()
 
 void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
 {
-    QString dataType = "zandersuperfunctionDataRecieved PROJ";
+    QString dataType = "zandersuperfunctionDataRecieved";
     if (data.startsWith(dataType)) {
         QStringList parts = data.mid(dataType.length()).trimmed().split(' ');
-        if (parts.size() >= 3) {
-            QString posX = parts[0];
-            QString posY = parts[1];
-            QString angle = parts[2];
+        if (parts.size() == 6) {
+            QString shipPosX = parts[0];
+            QString shipPosY = parts[1];
+            QString shipAngle = parts[2];
+            QString posX = parts[3];
+            QString posY = parts[4];
+            QString angle = parts[5];
+
+            QPointF shipPos(shipPosX.toInt(),shipPosY.toInt());
+            int intShipAngle = shipAngle.toInt();
+            qDebug() << "Printing this sexy data: " << shipPos;
+
+            if(player == 1){
+            player2Ship->setPos(shipPos);
+            player2Ship->angle=intShipAngle;
+            } else {
+            player1Ship->setPos(shipPos);
+            player1Ship->angle=intShipAngle;
+            }
+
+            qDebug() << "Ship data received - posX:" << shipPosX << "posY:" << shipPosY << "angle:" << shipAngle;
 
             QPointF projPos(posX.toInt(),posY.toInt());
             int intAngle = angle.toInt();
@@ -852,34 +888,27 @@ void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
             scene.addItem(proj);
 
             qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
-        } else {
-            qDebug() << "Invalid data format received:" << data;
-        }
-    } else {
-        dataType = "shipPos: ";
-        if (data.startsWith(dataType)) {
-            QStringList parts = data.mid(dataType.length()).trimmed().split(' ');
-            if (parts.size() >= 3) {
-                QString posX = parts[0];
-                QString posY = parts[1];
-                QString angle = parts[2];
+        } else if(parts.size() == 3) {
+                QString shipPosX = parts[0];
+                QString shipPosY = parts[1];
+                QString shipAngle = parts[2];
 
-                QPointF shipPos(posX.toInt(),posY.toInt());
-                int intAngle = angle.toInt();
+                QPointF shipPos(shipPosX.toInt(),shipPosY.toInt());
+                int intShipAngle = shipAngle.toInt();
+                qDebug() << "Printing this sexy data: " << shipPos;
 
+                if(player == 1){
                 player2Ship->setPos(shipPos);
-                player2Ship->angle=intAngle;
+                player2Ship->angle=intShipAngle;
+                } else {
+                player1Ship->setPos(shipPos);
+                player1Ship->angle=intShipAngle;
+                }
 
-                qDebug() << "Ship data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
-            } else {
-                qDebug() << "Invalid data format received:" << data;
-            }
-        } else {
-            qDebug() << "Unexpected data received:" << data;
+                qDebug() << "Ship data received - posX:" << shipPosX << "posY:" << shipPosY << "angle:" << shipAngle;
+
         }
     }
-
-
 
 }
 
@@ -887,18 +916,13 @@ int alternator = 0;
 void MainWindow::preparezandersuperfunctionDatatosendtherplayer()
 {
     QString data;
-    if(alternator==0)
-    {
-        alternator=1;
-        data = player1Ship->projectileLog;
-    }
-    if(alternator==1)
-    {
-        alternator=0;
-        data = player1Ship->projectileLog;
-    }
 
-    qDebug() << "DATA prepared to send : " << data;
+    if(player ==1)data = "zandersuperfunctionDataRecieved " + player1Ship->shipLog;
+    if(player ==2)data = "zandersuperfunctionDataRecieved " + player2Ship->shipLog;
+
+    //qDebug() << "DATA prepared to send : " << data;
     networkManager->sendzandersuperfunctionDatatootherplayer(data);
+    player1Ship->shipLog="";
+    player2Ship->shipLog="";
 }
 
