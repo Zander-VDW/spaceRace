@@ -50,7 +50,8 @@ public:
     int player;
     QString mapSeed;
     QString hostMapGenerator();
-    void receiveProjectileData();
+//    void receiveProjectileData();
+    void preparezandersuperfunctionDatatosendtherplayer(QPointF projectilePos, int angle);
 
 
 
@@ -75,6 +76,8 @@ private slots:
         void onHandshakeRejected();
         void onConnectionError(const QString &message);
     void handleAvailableGamesChanged();
+    //void handleProjectileData(QByteArray data);
+    void getszandersuperfunctionDatafromotherplayer(QByteArray data);
 
 
 private:
@@ -124,6 +127,7 @@ private:
         QTimer timer;
 
         playerShip *player1Ship;
+        playerShip *player2Ship;
         enemy *enemy1;
         QPointF enemyTargetPos;
 //    void player2mapseed(const QString &codeword, const QString &mapseed);

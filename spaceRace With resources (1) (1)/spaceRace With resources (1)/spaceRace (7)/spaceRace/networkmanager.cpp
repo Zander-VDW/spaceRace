@@ -1,13 +1,13 @@
 #include "networkmanager.h"
 #include <QNetworkDatagram>
 #include <QDebug>
+#include <QDataStream>
 
 NetworkManager::NetworkManager(QObject *parent)
     : QObject(parent),
       connected(false),
       udpSocket(new QUdpSocket(this)),
-      broadcastTimer(new QTimer(this)),
-      recipientAddress("")
+      broadcastTimer(new QTimer(this))
 {
     bool success = udpSocket->bind(QHostAddress::Any, 12345, QUdpSocket::ShareAddress);
     if (!success) {
@@ -102,12 +102,23 @@ void NetworkManager::sendMapSeedToPlayer2(const QString &mapseed)
     qDebug() << "Sending map seed data to Player 2:" << mapseed;
 }
 
-QString projectileSendData;
-void NetworkManager::sendProjectileData(QString &projectileData) //////////////////////////////////////////////////////////NETWORK STUFF 1
-{
-    QByteArray data =  projectileData.toUtf8();
+//QString projectileSendData;
+//void NetworkManager::sendProjectileData(QString &projectileData) //////////////////////////////////////////////////////////NETWORK STUFF 1
+//{
+//    QByteArray data =  projectileData.toUtf8();
+//    udpSocket->writeDatagram(data, QHostAddress(recipientAddress), 12345);
+//    qDebug() << "Sending map seed data to Player 2:" << projectileSendData;
+//}
+
+void NetworkManager::sendProjectileData(QString &projectileData) {
+    QByteArray data = projectileData.toUtf8();
     udpSocket->writeDatagram(data, QHostAddress(recipientAddress), 12345);
-    qDebug() << "Sending map seed data to Player 2:" << projectileSendData;
+    qDebug() << "Sending projectile data to Player 2:" << projectileData;
+}
+
+void NetworkManager::sendzandersuperfunctionDatatootherplayer(QByteArray &data)
+{
+    udpSocket->writeDatagram(data, QHostAddress(recipientAddress), 12345);
 }
 
 
@@ -161,15 +172,14 @@ void NetworkManager::processPendingDatagrams()
             } else if (message == "1HANDSHAKE_REJECTED") {
                 qDebug() << "Handling 1HANDSHAKE_REJECTED message";
                 emit handshakeRejected();
-            } else if(message == "jdnjan" ){
-
-
-
         } else {
+                if (message.contains("zandersuperfunctionDataRecieved")){
+                     QByteArray receivedData = datagram.data();
+                     emit zandersuperfunctionDataRecieved(receivedData);
+                }
             qDebug() << "Unexpected message from" << senderAddress << ":" << message;
             emit connectionError("Unexpected message from " + senderAddress);
         }
     }
 }
 }
-

@@ -12,6 +12,7 @@
 #include <QScreen>
 #include <QString>
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       connectionEstablished(false)
@@ -70,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(networkManager, &NetworkManager::handshakeRejected, this, &MainWindow::onHandshakeRejected);
     connect(networkManager, &NetworkManager::availableGamesChanged, this, &MainWindow::handleAvailableGamesChanged);
 
-    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
+//    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
     //connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
 
 }
@@ -83,19 +84,6 @@ void MainWindow::setupHostMenu()
 {
     QVBoxLayout *layout = new QVBoxLayout(hostMenuWidget);
     player = 1;
-
-    /*for (const QString &player : pendingPlayers) {
-        QPushButton *acceptButton = new QPushButton("Accept " + player, hostMenuWidget);
-        QPushButton *rejectButton = new QPushButton("Reject " + player, hostMenuWidget);
-
-        layout->addWidget(acceptButton);
-        layout->addWidget(rejectButton);
-
-        connect(acceptButton, &QPushButton::clicked, [this, player]() {acceptPlayer(player); startMultiplayerGame();});
-        connect(rejectButton, &QPushButton::clicked, [this, player]() {
-            rejectPlayer(player);
-        });
-    }*/
 
     QPushButton *backButton = new QPushButton("Back", hostMenuWidget);
     backButton->setFixedWidth(buttonWidth);
@@ -144,32 +132,20 @@ void MainWindow::onGameSelected(const QString &hostAddress)
         networkManager->sendHandshakeRequest(hostAddress);
 }
 
-/*void MainWindow::acceptPlayer(const QString &player)
-{
-    QString codeword = QDateTime::currentDateTime().toString(Qt::ISODate);
-    networkManager->sendHandshakeResponse(player, true, codeword, mapSeed);
-
-    this->codeword = codeword;
-    connectionEstablished = true; // Set the flag to true
-}
-
-void MainWindow::rejectPlayer(const QString &player)
-{
-    networkManager->sendHandshakeResponse(player, false, QString(), "");
-}*/
-
 void MainWindow::onHandshakeRequestReceived(const QString &clientAddress)
 {
+    mapSeed = hostMapGenerator();
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "New Player Request", "Do you want to accept the player from " + clientAddress + "?",
                                   QMessageBox::Yes | QMessageBox::No);
     if (reply == QMessageBox::Yes) {
-        QString mapSeed = hostMapGenerator(); // Ensure this function is defined
+
         QString codeword = QDateTime::currentDateTime().toString(Qt::ISODate);
         networkManager->sendHandshakeResponse(clientAddress, true, codeword, mapSeed);
         this->codeword = codeword;
         connectionEstablished = true; // Set the flag to true
         qDebug() << "Handshake accepted with" << clientAddress;
+        startMultiplayerGame();
     } else {
         networkManager->sendHandshakeResponse(clientAddress, false, QString(), "");
         qDebug() << "Handshake rejected with" << clientAddress;
@@ -700,7 +676,7 @@ void MainWindow::initializeApplication()
 */
 }
 
-void MainWindow::initializeMultiplayerApplication()
+/*void MainWindow::initializeMultiplayerApplication()
 {
     view = new QGraphicsView(this);
     view->setParent(this);
@@ -737,12 +713,11 @@ void MainWindow::initializeMultiplayerApplication()
     player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     scene.addItem(player1Ship);
 
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), "HOST");
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), mapSeed);
     scene.addItem(feature1);
 
     enemyTargetPos = player1Ship->getPosition();
-
-    enemy1->setPos(100, 100);
+    enemy1->setPos(200, 200);
     scene.addItem(enemy1);
 
     // Create and add shipAugment instances
@@ -786,54 +761,204 @@ void MainWindow::initializeMultiplayerApplication()
     view->resize(viewWidth, viewHeight); // Set window size
     view->centerOn(player1Ship->getPosition());
 
-
-
     timer.setInterval(1); // Update every millisecond
 
     connect(&timer, &QTimer::timeout, this, [this]() {
         scene.advance(); // Call advance to drive animation and collision detection
-
         enemy1->updatePosition(enemyTargetPos);
-
-
         enemyTargetPos = player1Ship->getPosition();
         view->centerOn(player1Ship->getPosition());
         scene.update();
 //        //std::cout << "playerShip Position: " << player1Ship->pos().x() << ", " << player1Ship->pos().y() << std::endl;
-
 //       //eg."projectile: positionX, positionY, angle"
        QString projectileData = "propped data";
        receiveProjectileData();
      //  Qdebug() << "";
-
-
-
-
     });
     timer.start();
 
     view->show();
 
-    /*setupGameover(int currentscore, "w"or"l")
-     * showGameoveer();
-*/
+//    setupGameover(int currentscore, "w"or"l")
+//    showGameoveer();
+
+}*/
+
+void MainWindow::initializeMultiplayerApplication()
+{
+    view = new QGraphicsView(this);
+    view->setParent(this);
+
+    player1Ship = new playerShip();
+    player2Ship = new playerShip(); // Create a second player ship
+
+    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
+
+    if (asteroidTiles.isNull()) {
+        qDebug() << "Failed to load background image file";
+    }
+
+    QBrush backgroundBrush(Qt::black); // asteroidTiles
+    scene.setBackgroundBrush(backgroundBrush);
+
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+
+    scene.setSceneRect(-5000, -5000, 10000, 10000);
+
+    // Add a few elements to the scene (for testing purposes)
+    scene.addRect(500, 500, 200, 200, QPen(Qt::blue), QBrush(Qt::blue));
+    scene.addEllipse(800, 800, 100, 100, QPen(Qt::red), QBrush(Qt::red));
+    scene.addRect(0, 100, 50, 100, QPen(Qt::green), QBrush(Qt::green));
+    scene.addRect(-300, -300, 500, 500, QPen(QColor(0, 0, 128)), QBrush(QColor(0, 0, 128)));
+
+
+
+    player2Ship->setFlag(QGraphicsItem::ItemClipsToShape, false);
+    player2Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
+    scene.addItem(player2Ship);
+
+    // Initialize player ships
+    player1Ship->setFlag(QGraphicsItem::ItemClipsToShape, false);
+    player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
+    scene.addItem(player1Ship);
+
+    // Position the ships
+    player1Ship->setPos(0, 0);
+    player2Ship->setPos(300, 300); // Example position, adjust as needed
+
+    mapFeature *feature1 = new mapFeature(scene.sceneRect(), mapSeed);
+    scene.addItem(feature1);
+
+    // Create and add shipAugment instances
+    shipAugment *augment1 = new shipAugment();
+    augment1->setPos(-200, 0);
+    augment1->setType("Shield");
+    scene.addItem(augment1);
+
+    shipAugment *augment2 = new shipAugment();
+    augment2->setPos(-200, -100);
+    augment2->setType("Blaster");
+    scene.addItem(augment2);
+
+    shipAugment *augment3 = new shipAugment();
+    augment3->setPos(-200, 100);
+    augment3->setType("Thruster");
+    scene.addItem(augment3);
+
+    shipAugment *augment4 = new shipAugment();
+    augment4->setPos(-200, 110);
+    augment4->setType("Thruster");
+    scene.addItem(augment4);
+
+    shipAugment *augment5 = new shipAugment();
+    augment5->setPos(-200, 110);
+    augment5->setType("Blaster");
+    scene.addItem(augment5);
+
+    // Set focus to the player ship based on the player variable
+    player1Ship->setFlag(QGraphicsItem::ItemIsFocusable);
+    player2Ship->setFlag(QGraphicsItem::ItemIsFocusable);
+
+    // Debugging output
+    qDebug() << "Player value: " << player;
+
+    if (player == 1) {
+        player1Ship->setFocus();
+        qDebug() << "Player 1 ship focused.";
+    } else if (player == 2) {
+        player2Ship->setFocus();
+        qDebug() << "Player 2 ship focused.";
+    } else {
+        qDebug() << "Unknown player value.";
+    }
+
+    // Create a QGraphicsView and set the scene
+    view->setScene(&scene);
+    view->setWindowTitle("Space Battle Adventure Bonanza"); // Set window title
+
+    // Set the initial view size
+    const int viewWidth = screenWidth;
+    const int viewHeight = screenHeight;
+    view->resize(viewWidth, viewHeight);
+
+    // Center the view on the appropriate player ship
+    if (player == 1) {
+        view->centerOn(player1Ship->getPosition());
+        qDebug() << "Centered on player 1 ship at position: " << player1Ship->getPosition();
+    } else if (player == 2) {
+        view->centerOn(player2Ship->getPosition());
+        qDebug() << "Centered on player 2 ship at position: " << player2Ship->getPosition();
+    }
+
+    timer.setInterval(1); // Update every millisecond
+
+    connect(&timer, &QTimer::timeout, this, [this]() {
+        scene.advance(); // Call advance to drive animation and collision detection
+        // Center the view on the appropriate player ship
+         //preparezandersuperfunctionDatatosendtherplayer();
+        if (this->player == 1) {
+            view->centerOn(this->player1Ship->getPosition());
+        } else if (this->player == 2) {
+            view->centerOn(this->player2Ship->getPosition());
+        }
+        scene.update();
+    });
+
+
+    timer.start();
+    view->show();
+}
+
+void MainWindow::getszandersuperfunctionDatafromotherplayer(QByteArray data)
+{
+   //use data to get any information that was sent to you
+    int index = data.indexOf("zandersuperfunctionDataRecieved");
+    if (index != -1)
+    {
+        data.remove(index, QString("zandersuperfunctionDataRecieved").length());
+    }
+    qreal posX, posY, angle;
+    QDataStream stream(data);
+    stream >> posX >> posY >> angle;
+    qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+
+    scene.addEllipse(0,0, 0,0);                                                                                                        //////////////////ZANDER DATA STUFF
+
+}
+
+void MainWindow::preparezandersuperfunctionDatatosendtherplayer(/*add bullet data in here*/)              ///////////////////ZANDER DATA STUFF
+{
+    QByteArray data;
+    //use data to write whatever you want to say to the next user
+    QPointF position(10.0, 20.0);
+    qreal angle = 30.0;
+
+
+    QDataStream stream(&data, QIODevice::WriteOnly);
+
+    stream << "zandersuperfunctionDataRecieved " << position.x() << position.y() << angle;
+     qDebug() << "Projectile data received - posX:" << position.x() << "posY:" << position.y() << "angle:" << angle;
+    networkManager->sendzandersuperfunctionDatatootherplayer(data);
 }
 
 QString projectileReceiveData;
 QString projectileSendData;
-void MainWindow::receiveProjectileData() //////////////////////////////////////NETWORK STUFF 2
-{
-    networkManager->sendProjectileData(projectileSendData);
-    projectileReceiveData = "";
+//void MainWindow::receiveProjectileData() //////////////////////////////////////NETWORK STUFF 2
+//{
+//    networkManager->sendProjectileData(projectileSendData);
+//    projectileReceiveData = "";
 
-    if(projectileReceiveData.contains("projectile"))
-    {
-        int projectileX = 0;
-        int projectileY = 0;
-        int projectileAngle = 0;
+//    if(projectileReceiveData.contains("projectile"))
+//    {
+//        int projectileX = 0;
+//        int projectileY = 0;
+//        int projectileAngle = 0;
 
-            projectile *proj = new projectile(QPointF(projectileX, projectileY),projectileAngle);
-    scene.addItem(proj);
-    }
+//            projectile *proj = new projectile(QPointF(projectileX, projectileY),projectileAngle);
+//    scene.addItem(proj);
+//    }
 
-}
+//}

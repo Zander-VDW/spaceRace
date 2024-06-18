@@ -23,6 +23,8 @@ public:
     void disconnect();
     void sendMapSeedToPlayer2(const QString &mapseed);
     void sendProjectileData(QString &projectileData);
+    void sendzandersuperfunctionDatatootherplayer(QByteArray &data);
+    void getszandersuperfunctionDatafromotherplayer(QByteArray data);
 
 signals:
     void handshakeRequestReceived(const QString &senderAddress);
@@ -30,6 +32,8 @@ signals:
     void handshakeRejected();
     void connectionError(const QString &message);
     void availableGamesChanged();
+    void projectileDataReceived(QByteArray data);
+    void zandersuperfunctionDataRecieved(QByteArray);
 
 
 private slots:

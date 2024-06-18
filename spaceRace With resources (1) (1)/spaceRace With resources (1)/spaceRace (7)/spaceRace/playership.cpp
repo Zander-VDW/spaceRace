@@ -196,10 +196,6 @@ void playerShip::shootBlaster() {
     //std::cout << "Painting playerShip at position: (" << pos.x() << ", " << pos.y() << ")" << std::endl;
 }
 
-
-
-
-
 void playerShip::keyPressEvent(QKeyEvent *event) {
     if(isAlive){
 
@@ -331,8 +327,6 @@ void playerShip::keyPressEvent(QKeyEvent *event) {
     update();
 }}
 
-
-
 void playerShip::slotOneBurnFunction() {
     // Implementation of slot one burn functionality
     // Reset or stop the timer and deactivate the slot
@@ -429,9 +423,6 @@ QRectF playerShip::slotRect(int slot) {
     return QRectF(transformedPosition - QPointF(30, 30), QSizeF(60, 60));
 }
 
-
-
-
 void playerShip::checkForCollisions() {
     QList<QGraphicsItem *> collidingItems = scene()->collidingItems(this);
     for (QGraphicsItem *item : collidingItems) {
@@ -470,8 +461,6 @@ void playerShip::checkForCollisions() {
         }
     }
 }
-
-
 
 void playerShip::advance(int step) {
     if (!step) return;
@@ -606,7 +595,3 @@ void playerShip::takeDamage(int damage) {
         // Add more code to handle player death, like stopping the game or resetting the level
     }
 }
-
-
-
-
