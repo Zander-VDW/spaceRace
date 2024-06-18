@@ -71,7 +71,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(networkManager, &NetworkManager::handshakeRejected, this, &MainWindow::onHandshakeRejected);
     connect(networkManager, &NetworkManager::availableGamesChanged, this, &MainWindow::handleAvailableGamesChanged);
     connect(networkManager, &NetworkManager::zandersuperfunctionDataRecieved, this, &MainWindow::getszandersuperfunctionDatafromotherplayer);
-//    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
+    //    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
     //connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
 
 }
@@ -128,8 +128,8 @@ void MainWindow::updateGameList()
 
 void MainWindow::onGameSelected(const QString &hostAddress)
 {
-        player = 2;
-        networkManager->sendHandshakeRequest(hostAddress);
+    player = 2;
+    networkManager->sendHandshakeRequest(hostAddress);
 }
 
 void MainWindow::onHandshakeRequestReceived(const QString &clientAddress)
@@ -187,8 +187,8 @@ void MainWindow::showMultiplayerMenu()
 
 void MainWindow::showMainMenu()
 {
-   networkManager->stopBroadcasting();
-   stackedWidget->setCurrentWidget(mainMenuWidget);
+    networkManager->stopBroadcasting();
+    stackedWidget->setCurrentWidget(mainMenuWidget);
 }
 
 void MainWindow::showHostMenu()
@@ -580,7 +580,7 @@ void MainWindow::initializeApplication()
 
     player1Ship = new playerShip();
     enemy1 = new enemy();
-       /*if(enemy1->drop == ""){
+    /*if(enemy1->drop == ""){
 
 
        }*/
@@ -804,7 +804,7 @@ void MainWindow::initializeMultiplayerApplication()
     connect(&timer, &QTimer::timeout, this, [this]() {
         scene.advance(); // Call advance to drive animation and collision detection
         // Center the view on the appropriate player ship
-         //preparezandersuperfunctionDatatosendtherplayer();
+        //preparezandersuperfunctionDatatosendtherplayer();
         if (this->player == 1) {
             view->centerOn(this->player1Ship->getPosition());
         } else if (this->player == 2) {
@@ -883,11 +883,22 @@ void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
 
 }
 
-
+int alternator = 0;
 void MainWindow::preparezandersuperfunctionDatatosendtherplayer()
 {
-    QString data = player1Ship->projectileLog;
-    qDebug() << "Projectile data prepared to send : " << data;
+    QString data;
+    if(alternator==0)
+    {
+        alternator=1;
+        data = player1Ship->projectileLog;
+    }
+    if(alternator==1)
+    {
+        alternator=0;
+        data = player1Ship->projectileLog;
+    }
+
+    qDebug() << "DATA prepared to send : " << data;
     networkManager->sendzandersuperfunctionDatatootherplayer(data);
 }
 

@@ -507,6 +507,7 @@ void playerShip::advance(int step) {
     if (!step) return;
     checkForCollisions();
     shipLog = "shipPos: " + QString::number(this->getPosition().x()) + " " + QString::number(this->getPosition().y())+ " " + angle;
+    qDebug() << shipLog;
 }
 
 int speed;
