@@ -926,10 +926,12 @@ void MainWindow::getszandersuperfunctionDatafromotherplayer(QByteArray data)
     {
         data.remove(index, QString("zandersuperfunctionDataRecieved").length());
     }
-    qreal posX, posY, angle;
+    int posX;
+    int posY;
+    int angle;
     QDataStream stream(data);
     stream >> posX >> posY >> angle;
-    qDebug() << "NEW Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+    qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
 
     projectile *proj = new projectile(QPointF(posX,posY), angle);                                                                                                       //////////////////ZANDER DATA STUFF
     scene.addItem(proj);
@@ -941,13 +943,15 @@ void MainWindow::preparezandersuperfunctionDatatosendtherplayer(QString Log)    
 
     QDataStream stream(&data, QIODevice::WriteOnly);
 
-
+    int posX = Log.toInt();
+    int posY = Log.toInt();
+    int angle = Log.toInt();
     //rip out data from log and put it in below
-    stream << Log;
+    stream << posX << posY << angle;
 
     //stream << "zandersuperfunctionDataRecieved " << projectile.pos.x() << projectile.pos.y() << projectile.angle;
 
-     qDebug() << "Projectile data received - posX:" << "" << "posY:" << "" << "angle:" << Log;
+     //qDebug() << "Projectile data received - posX:" << "" << "posY:" << "" << "angle:" << Log;
      Log.clear();
      player1Ship->projectileLog.clear();
     networkManager->sendzandersuperfunctionDatatootherplayer(data);
