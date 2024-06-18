@@ -13,10 +13,11 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     void advance(int step) override;
-
-private:
     QPointF pos;
     qreal angle;
+
+private:
+
     qreal speed;
     QTimer collisionTimer;
     bool canCollide;

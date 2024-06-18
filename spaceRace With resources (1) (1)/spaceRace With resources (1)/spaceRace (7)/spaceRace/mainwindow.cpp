@@ -905,11 +905,17 @@ void MainWindow::initializeMultiplayerApplication()
             view->centerOn(this->player2Ship->getPosition());
         }
         scene.update();
+
+        preparezandersuperfunctionDatatosendtherplayer(player1Ship->projectileLog);
+
     });
 
 
     timer.start();
     view->show();
+
+
+
 }
 
 void MainWindow::getszandersuperfunctionDatafromotherplayer(QByteArray data)
@@ -923,24 +929,27 @@ void MainWindow::getszandersuperfunctionDatafromotherplayer(QByteArray data)
     qreal posX, posY, angle;
     QDataStream stream(data);
     stream >> posX >> posY >> angle;
-    qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+    qDebug() << "NEW Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
 
-    scene.addEllipse(0,0, 0,0);                                                                                                        //////////////////ZANDER DATA STUFF
-
+    projectile *proj = new projectile(QPointF(posX,posY), angle);                                                                                                       //////////////////ZANDER DATA STUFF
+    scene.addItem(proj);
 }
 
-void MainWindow::preparezandersuperfunctionDatatosendtherplayer(/*add bullet data in here*/)              ///////////////////ZANDER DATA STUFF
+void MainWindow::preparezandersuperfunctionDatatosendtherplayer(QString Log)              ///////////////////ZANDER DATA STUFF
 {
     QByteArray data;
-    //use data to write whatever you want to say to the next user
-    QPointF position(10.0, 20.0);
-    qreal angle = 30.0;
-
 
     QDataStream stream(&data, QIODevice::WriteOnly);
 
-    stream << "zandersuperfunctionDataRecieved " << position.x() << position.y() << angle;
-     qDebug() << "Projectile data received - posX:" << position.x() << "posY:" << position.y() << "angle:" << angle;
+
+    //rip out data from log and put it in below
+    stream << Log;
+
+    //stream << "zandersuperfunctionDataRecieved " << projectile.pos.x() << projectile.pos.y() << projectile.angle;
+
+     qDebug() << "Projectile data received - posX:" << "" << "posY:" << "" << "angle:" << Log;
+     Log.clear();
+     player1Ship->projectileLog.clear();
     networkManager->sendzandersuperfunctionDatatootherplayer(data);
 }
 

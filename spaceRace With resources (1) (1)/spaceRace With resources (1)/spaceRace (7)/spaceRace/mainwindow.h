@@ -51,7 +51,7 @@ public:
     QString mapSeed;
     QString hostMapGenerator();
 //    void receiveProjectileData();
-    void preparezandersuperfunctionDatatosendtherplayer(QPointF projectilePos, int angle);
+    void preparezandersuperfunctionDatatosendtherplayer(QString Log);
 
 
 

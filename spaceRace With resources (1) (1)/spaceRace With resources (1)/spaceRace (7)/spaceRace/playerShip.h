@@ -10,6 +10,8 @@
 #include <QtCore/QObject>
 #include <progressbar.h>
 #include <QImage>
+#include <projectile.h>
+#include <QVector>
 
 class playerShip : public QObject, public QGraphicsItem
 {
@@ -24,6 +26,7 @@ public:
     void updateSlot(QString value);
     void advance(int phase) override;
     void takeDamage(int damage);
+    QString projectileLog;
 
 private:
     QImage playerShipImage;

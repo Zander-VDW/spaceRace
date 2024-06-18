@@ -14,9 +14,12 @@
 #include "shipAugment.h"
 #include "projectile.h"
 #include <progressbar.h>
+#include <mainwindow.h>
+#include <projectile.h>
 
 int imageAngle;
-playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1000), maxHealth(1000), isAlive(true) {
+int logFinger=0;
+playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1000), maxHealth(1000), isAlive(true), projectileLog(""){
     // Initialize ship properties here if needed
     //this->highlightedSlot = 1;
 
@@ -68,6 +71,7 @@ playerShip::playerShip() : angle(0), pos(0, 0), defaultSpeed(3), currentHealth(1
     coolDownBar4->setPos(-50,50);
 
     playerShipImage.load("C:/Users/Dell10th-Gen/Downloads/temporarySlang/ships/playerShip.png");
+
 }
 
 QRectF playerShip::boundingRect() const {
@@ -176,23 +180,55 @@ void playerShip::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 }
 
 void playerShip::shootBlaster() {
+
     if (slotOne.getType() == "Blaster" && slotOne.getActive()) {
-        projectile *proj = new projectile(slotRect(1).center(), angle); //can fix the bullet centering here I guess
+        projectile *proj = new projectile(slotRect(1).center(), angle);
+        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += QString::number(proj->pos.x());
+        projectileLog +=  QString::number(proj->pos.y());
+        projectileLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotTwo.getType() == "Blaster" && slotTwo.getActive()) {
         projectile *proj = new projectile(slotRect(2).center(), angle);
+        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += QString::number(proj->pos.x());
+        projectileLog +=  QString::number(proj->pos.y());
+        projectileLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotThree.getType() == "Blaster" && slotThree.getActive()) {
         projectile *proj = new projectile(slotRect(3).center(), angle);
+        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += QString::number(proj->pos.x());
+        projectileLog +=  QString::number(proj->pos.y());
+        projectileLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
     if (slotFour.getType() == "Blaster" && slotFour.getActive()) {
         projectile *proj = new projectile(slotRect(4).center(), angle);
+        projectileLog += "zandersuperfunctionDataRecieved ";
+        projectileLog += QString::number(proj->pos.x());
+        projectileLog +=  QString::number(proj->pos.y());
+        projectileLog += QString::number(proj->angle);
         scene()->addItem(proj);
     }
 
+    /* projectileLog += "  X: ";
+        projectileLog += QString::number(proj->pos.x());
+        projectileLog += "  Y: ";
+        projectileLog += QString::number(proj->pos.y());
+        projectileLog += "  Angle: ";
+        projectileLog += QString::number(proj->angle);
+        projectileLog += "              ";*/
+
+
+    //qDebug() << projectileLog;
+    logFinger++;
+    if (logFinger > 100) {
+        logFinger = 0;
+        projectileLog.clear();//clear proejectile array if necessary
+    }
     //std::cout << "Painting playerShip at position: (" << pos.x() << ", " << pos.y() << ")" << std::endl;
 }
 
