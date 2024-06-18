@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QApplication>
 #include <QGuiApplication>
 #include <QScreen>
 #include <QString>
@@ -32,19 +33,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
-    int screenWidth = screenGeometry.width();
+    screenWidth = screenGeometry.width();
     int screenHeight = screenGeometry.height();
     buttonWidth = screenWidth * 0.2;
 
-    QPixmap backgroundPixmap(":/menus/mainmenuscreen.jpg");
+    QPixmap backgroundPixmap("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mainmenuscreen.jpg");
     backgroundLabel->setPixmap(backgroundPixmap);
-    backgroundLabel->setFixedSize(screenWidth, screenHeight);
+    backgroundLabel->setFixedSize(screenWidth+1, screenHeight+1);
     backgroundLabel->lower();
 
 
 
     setCentralWidget(stackedWidget);
-
     setupMainMenu();
     setupMultiplayerMenu();
     setupHostMenu();
@@ -61,8 +61,8 @@ MainWindow::MainWindow(QWidget *parent)
     //showGameover();
     //startGame();
 
-    changeBackgroundMusic("qrc:/menus/background.mp3");
-    buttonClickSound->setSource(QUrl(":/menus/buttonclick.mp3"));
+    changeBackgroundMusic("qrc:C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/background.mp3");
+    buttonClickSound->setSource(QUrl(":C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/buttonclick.mp3"));
     buttonClickSound->setVolume(1.00);
 
     // Connect network manager signals
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(networkManager, &NetworkManager::handshakeAccepted, this, &MainWindow::onHandshakeAccepted);
     connect(networkManager, &NetworkManager::handshakeRejected, this, &MainWindow::onHandshakeRejected);
     connect(networkManager, &NetworkManager::availableGamesChanged, this, &MainWindow::handleAvailableGamesChanged);
-
+    connect(networkManager, &NetworkManager::zandersuperfunctionDataRecieved, this, &MainWindow::getszandersuperfunctionDatafromotherplayer);
 //    connect(networkManager, &NetworkManager::sendProjectileData, this, &MainWindow::receiveProjectileData);
     //connect(networkManager, &NetworkManager::connectionError, this, &MainWindow::onConnectionError);
 
@@ -224,7 +224,7 @@ void MainWindow::setupMainMenu()
 {
     QLabel *gameNameLabel = new QLabel("Game Name", mainMenuWidget);
     QFont font = gameNameLabel->font();
-    font.setPointSize(200); // Set the font size
+    font.setPointSize(screenWidth*0.1);
     font.setBold(true);    // Set the font to bold
     gameNameLabel->setFont(font);
     gameNameLabel->setAlignment(Qt::AlignCenter);
@@ -232,21 +232,25 @@ void MainWindow::setupMainMenu()
     palette.setColor(QPalette::WindowText, Qt::red); // Set the text color to red
     gameNameLabel->setPalette(palette);
 
-    QPushButton *singlePlayerButton = new QPushButton("Single", mainMenuWidget);
+    QPushButton *singlePlayerButton = new QPushButton("SINGLE", mainMenuWidget);
     singlePlayerButton->setFixedWidth(buttonWidth);
-    QPushButton *multiplayerButton = new QPushButton("Multiplayer", mainMenuWidget);
+    QPushButton *multiplayerButton = new QPushButton("VS MODE", mainMenuWidget);
     multiplayerButton->setFixedWidth(buttonWidth);
+    QPushButton *exitButton = new QPushButton("exit game", mainMenuWidget);
+    exitButton->setFixedWidth(buttonWidth);
 
     QVBoxLayout *layout = new QVBoxLayout(mainMenuWidget);
     layout->addWidget(gameNameLabel);
     layout->addWidget(singlePlayerButton);
     layout->addWidget(multiplayerButton);
+    layout->addWidget(exitButton);
     layout->setAlignment(Qt::AlignCenter);
 
     connect(singlePlayerButton, &QPushButton::clicked, this, &MainWindow::showGameover);
     connect(singlePlayerButton, &QPushButton::clicked, this, &MainWindow::playButtonClickSound);
     connect(multiplayerButton, &QPushButton::clicked, this, &MainWindow::showMultiplayerMenu);
     connect(multiplayerButton, &QPushButton::clicked, this, &MainWindow::playButtonClickSound);
+    connect(exitButton, &QPushButton::clicked, qApp, &QApplication::quit);
 }
 
 void MainWindow::processScoreEntry(QLineEdit *nameInput, int currentScore, QVector<ScoreEntry> &scores, QLabel *top3ScoresLabel)
@@ -282,7 +286,7 @@ void MainWindow::processScoreEntry(QLineEdit *nameInput, int currentScore, QVect
 
         // Debugging save to file
         qDebug() << "Saving scores to file";
-        saveScoresToFile("C:/Users/Zayn/Downloads/spaceRace actual previous save!!!/spaceRace/spaceRaceREII313/menus/scores.txt", scores);  // Ensure writable file path
+        saveScoresToFile("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt", scores);  // Ensure writable file path
         qDebug() << "Scores saved to file";
 
         // Debugging label update
@@ -313,7 +317,7 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     // Load and display the picture at the top
     QLabel *gameOverLabel = new QLabel("Game Over", GameoverWidget);
     QFont font = gameOverLabel->font();
-    font.setPointSize(50); // Set the font size
+    font.setPointSize(screenWidth*0.05); // Set the font size
     font.setBold(true);    // Set the font to bold
     gameOverLabel->setFont(font);
     gameOverLabel->setAlignment(Qt::AlignCenter);
@@ -327,7 +331,7 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     layout->addWidget(gameOverLabel);
 
     // Read scores from a text file
-    QVector<ScoreEntry> scores = readScoresFromFile("C:/Users/Zayn/Downloads/spaceRace actual previous save!!!/spaceRace/spaceRaceREII313/menus/scores.txt");  // Ensure writable file path
+    QVector<ScoreEntry> scores = readScoresFromFile("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt");  // Ensure writable file path
     std::sort(scores.begin(), scores.end(), [](const ScoreEntry &a, const ScoreEntry &b) {
         return a.score > b.score;
     });
@@ -344,7 +348,7 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
     {
         QLabel *Winlabel = new QLabel("YOU WIN", GameoverWidget);
         QFont font = Winlabel->font();
-        font.setPointSize(150); // Set the font size
+        font.setPointSize(screenWidth*0.15); // Set the font size
         font.setBold(true);    // Set the font to bold
         Winlabel->setFont(font);
         Winlabel->setAlignment(Qt::AlignCenter);
@@ -353,14 +357,14 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
 
         QLabel *hscorelabel = new QLabel("NEW HIGH SCORE", GameoverWidget);
         QFont font2 = hscorelabel->font();
-        font2.setPointSize(50); // Set the font size
+        font2.setPointSize(screenWidth*0.05); // Set the font size
         hscorelabel->setFont(font2);
         hscorelabel->setAlignment(Qt::AlignCenter);
         hscorelabel->setPalette(palette);
 
         QLabel *nameLabel = new QLabel("Enter your name:", GameoverWidget);
         QFont font3 = nameLabel->font();
-        font3.setPointSize(50); // Set the font size
+        font3.setPointSize(screenWidth*0.05); // Set the font size
         nameLabel->setFont(font3);
         nameLabel->setAlignment(Qt::AlignCenter);
         nameLabel->setPalette(palette);
@@ -377,7 +381,7 @@ void MainWindow::setupGameover(int currentScore, const QString &defaultName)
         // Display the top 3 highest scores
         QLabel *top3ScoresLabel = new QLabel(GameoverWidget);
         QFont font4 = top3ScoresLabel->font();
-        font4.setPointSize(25); // Set the font size
+        font4.setPointSize(screenWidth*0.012); // Set the font size
         top3ScoresLabel->setFont(font4);
         top3ScoresLabel->setAlignment(Qt::AlignCenter);
         top3ScoresLabel->setPalette(palette);
@@ -473,7 +477,7 @@ void MainWindow::saveScore()
 
     QString scoreEntry = QString("%1,%2,%3\n").arg(playerName).arg(currentScore).arg(timestamp);
 
-    QFile file("C:/Users/Zayn/Downloads/spaceRace actual previous save!!!/spaceRace/spaceRaceREII313/menus/scores.txt");
+    QFile file("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/scores.txt");
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         out << scoreEntry;
@@ -500,6 +504,16 @@ void MainWindow::saveScoresToFile(const QString &filePath, const QVector<ScoreEn
 
 void MainWindow::setupMultiplayerMenu()
 {
+    QLabel *multiLabel = new QLabel("VS MODE", mainMenuWidget);
+    QFont font = multiLabel->font();
+    font.setPointSize(screenWidth*0.1);
+    font.setBold(true);    // Set the font to bold
+    multiLabel->setFont(font);
+    multiLabel->setAlignment(Qt::AlignCenter);
+    QPalette palette = multiLabel->palette();
+    palette.setColor(QPalette::WindowText, Qt::red); // Set the text color to red
+    multiLabel->setPalette(palette);
+
     QPushButton *hostButton = new QPushButton("Host", multiplayerMenuWidget);
     QPushButton *joinButton = new QPushButton("Join", multiplayerMenuWidget);
     QPushButton *backButton = new QPushButton("Back", multiplayerMenuWidget);
@@ -571,7 +585,7 @@ void MainWindow::initializeApplication()
 
        }*/
 
-    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
+    QImage asteroidTiles = QImage("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mapElements/multiMazeTile.png");
 
     if (asteroidTiles.isNull()) {
         qDebug() << "Failed to load background image file";
@@ -676,114 +690,6 @@ void MainWindow::initializeApplication()
 */
 }
 
-/*void MainWindow::initializeMultiplayerApplication()
-{
-    view = new QGraphicsView(this);
-    view->setParent(this);
-
-
-    player1Ship = new playerShip();
-    enemy1 = new enemy();
-
-
-    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
-
-    if (asteroidTiles.isNull()) {
-        qDebug() << "Failed to load background image file";
-    }
-
-    QBrush backgroundBrush(Qt::black);//asteroidTiles
-    scene.setBackgroundBrush(backgroundBrush);
-
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->geometry();
-    int screenWidth = screenGeometry.width();
-    int screenHeight = screenGeometry.height();
-
-    scene.setSceneRect(-5000, -5000, 10000, 10000);
-
-    // Add a few elements to the scene (for testing purposes)
-    scene.addRect(500, 500, 200, 200, QPen(Qt::blue), QBrush(Qt::blue));
-    scene.addEllipse(800, 800, 100, 100, QPen(Qt::red), QBrush(Qt::red));
-    scene.addRect(0, 100, 50, 100, QPen(Qt::green), QBrush(Qt::green));
-    scene.addRect(-300, -300, 500, 500, QPen(QColor(0, 0, 128)), QBrush(QColor(0, 0, 128)));
-
-    // Create an instance of the playerShip class
-    player1Ship->setFlag(QGraphicsItem::ItemClipsToShape, false);
-    player1Ship->setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
-    scene.addItem(player1Ship);
-
-    mapFeature *feature1 = new mapFeature(scene.sceneRect(), mapSeed);
-    scene.addItem(feature1);
-
-    enemyTargetPos = player1Ship->getPosition();
-    enemy1->setPos(200, 200);
-    scene.addItem(enemy1);
-
-    // Create and add shipAugment instances
-    shipAugment *augment1 = new shipAugment();
-    augment1->setPos(-200, 0);
-    augment1->setType("Shield");
-    scene.addItem(augment1);
-
-    shipAugment *augment2 = new shipAugment();
-    augment2->setPos(-200, -100);
-    augment2->setType("Blaster");
-    scene.addItem(augment2);
-
-    shipAugment *augment3 = new shipAugment();
-    augment3->setPos(-200, 100);
-    augment3->setType("Thruster");
-    scene.addItem(augment3);
-
-    shipAugment *augment4 = new shipAugment();
-    augment4->setPos(-200, 110);
-    augment4->setType("Thruster");
-    scene.addItem(augment4);
-
-    shipAugment *augment5 = new shipAugment();
-    augment5->setPos(-200, 110);
-    augment5->setType("Blaster");
-    scene.addItem(augment5);
-
-    // Set focus to the playerShip item
-    player1Ship->setFlag(QGraphicsItem::ItemIsFocusable);
-    player1Ship->setPos(0,0);
-    player1Ship->setFocus();
-
-    // Create a QGraphicsView and set the scene
-    view->setScene(&scene);
-    view->setWindowTitle("Space Battle Adventure Bonanza"); // Set window title
-
-    // Set the initial view size
-    const int viewWidth = screenWidth;
-    const int viewHeight = screenHeight;
-    view->resize(viewWidth, viewHeight); // Set window size
-    view->centerOn(player1Ship->getPosition());
-
-    timer.setInterval(1); // Update every millisecond
-
-    connect(&timer, &QTimer::timeout, this, [this]() {
-        scene.advance(); // Call advance to drive animation and collision detection
-        enemy1->updatePosition(enemyTargetPos);
-        enemyTargetPos = player1Ship->getPosition();
-        view->centerOn(player1Ship->getPosition());
-        scene.update();
-//        //std::cout << "playerShip Position: " << player1Ship->pos().x() << ", " << player1Ship->pos().y() << std::endl;
-//       //eg."projectile: positionX, positionY, angle"
-       QString projectileData = "propped data";
-       receiveProjectileData();
-     //  Qdebug() << "";
-    });
-    timer.start();
-
-    view->show();
-
-//    setupGameover(int currentscore, "w"or"l")
-//    showGameoveer();
-
-}*/
-
 void MainWindow::initializeMultiplayerApplication()
 {
     view = new QGraphicsView(this);
@@ -792,7 +698,7 @@ void MainWindow::initializeMultiplayerApplication()
     player1Ship = new playerShip();
     player2Ship = new playerShip(); // Create a second player ship
 
-    QImage asteroidTiles = QImage("C:/Users/Dell10th-Gen/Downloads/temporarySlang/mapElements/multiMazeTile.png");
+    QImage asteroidTiles = QImage("C:/Users/thoko/Downloads/spaceRace/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace/spaceRace/spaceRaceREII313/mapElements/multiMazeTile.png");
 
     if (asteroidTiles.isNull()) {
         qDebug() << "Failed to load background image file";
@@ -905,73 +811,60 @@ void MainWindow::initializeMultiplayerApplication()
             view->centerOn(this->player2Ship->getPosition());
         }
         scene.update();
-
-        preparezandersuperfunctionDatatosendtherplayer(player1Ship->projectileLog);
-
+        preparezandersuperfunctionDatatosendtherplayer();
     });
 
 
     timer.start();
     view->show();
-
-
-
 }
 
-void MainWindow::getszandersuperfunctionDatafromotherplayer(QByteArray data)
+
+//void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
+//{
+////    QDataStream stream(data);
+//    QString datatype;
+////    stream >> dataType;
+
+//    if (dataType == "zandersuperfunctionDataRecieved") {
+//        QString posX, posY;
+//        QString angle;
+////        stream >> posX >> posY >> angle;
+
+//        qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+//    }
+//}
+
+void MainWindow::getszandersuperfunctionDatafromotherplayer(const QString &data)
 {
-   //use data to get any information that was sent to you
-    int index = data.indexOf("zandersuperfunctionDataRecieved");
-    if (index != -1)
-    {
-        data.remove(index, QString("zandersuperfunctionDataRecieved").length());
+    QString dataType = "zandersuperfunctionDataRecieved";
+    if (data.startsWith(dataType)) {
+        QStringList parts = data.mid(dataType.length()).trimmed().split(' ');
+        if (parts.size() >= 3) {
+            QString posX = parts[0];
+            QString posY = parts[1];
+            QString angle = parts[2];
+
+            QPointF projPos(posX.toInt(),posY.toInt());
+            int intAngle = angle.toInt();
+
+            projectile *proj = new projectile(projPos, intAngle);
+            scene.addItem(proj);
+
+            qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
+        } else {
+            qDebug() << "Invalid data format received:" << data;
+        }
+    } else {
+        qDebug() << "Unexpected data received:" << data;
     }
-    int posX;
-    int posY;
-    int angle;
-    QDataStream stream(data);
-    stream >> posX >> posY >> angle;
-    qDebug() << "Projectile data received - posX:" << posX << "posY:" << posY << "angle:" << angle;
-
-    projectile *proj = new projectile(QPointF(posX,posY), angle);                                                                                                       //////////////////ZANDER DATA STUFF
-    scene.addItem(proj);
 }
 
-void MainWindow::preparezandersuperfunctionDatatosendtherplayer(QString Log)              ///////////////////ZANDER DATA STUFF
+
+void MainWindow::preparezandersuperfunctionDatatosendtherplayer()
 {
-    QByteArray data;
-
-    QDataStream stream(&data, QIODevice::WriteOnly);
-
-    int posX = Log.toInt();
-    int posY = Log.toInt();
-    int angle = Log.toInt();
-    //rip out data from log and put it in below
-    stream << posX << posY << angle;
-
-    //stream << "zandersuperfunctionDataRecieved " << projectile.pos.x() << projectile.pos.y() << projectile.angle;
-
-     //qDebug() << "Projectile data received - posX:" << "" << "posY:" << "" << "angle:" << Log;
-     Log.clear();
-     player1Ship->projectileLog.clear();
+    QString data = player1Ship->projectileLog;
+    qDebug() << "Projectile data prepared to send : " << data;
     networkManager->sendzandersuperfunctionDatatootherplayer(data);
 }
 
-QString projectileReceiveData;
-QString projectileSendData;
-//void MainWindow::receiveProjectileData() //////////////////////////////////////NETWORK STUFF 2
-//{
-//    networkManager->sendProjectileData(projectileSendData);
-//    projectileReceiveData = "";
-
-//    if(projectileReceiveData.contains("projectile"))
-//    {
-//        int projectileX = 0;
-//        int projectileY = 0;
-//        int projectileAngle = 0;
-
-//            projectile *proj = new projectile(QPointF(projectileX, projectileY),projectileAngle);
-//    scene.addItem(proj);
-//    }
-
-//}

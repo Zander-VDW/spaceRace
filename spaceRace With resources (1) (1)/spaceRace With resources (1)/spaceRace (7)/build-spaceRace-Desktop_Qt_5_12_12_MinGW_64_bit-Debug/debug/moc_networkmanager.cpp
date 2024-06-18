@@ -95,7 +95,7 @@ static const uint qt_meta_data_NetworkManager[] = {
     QMetaType::Void, QMetaType::QString,    9,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QByteArray,   12,
-    QMetaType::Void, QMetaType::QByteArray,    2,
+    QMetaType::Void, QMetaType::QString,   12,
 
  // slots: parameters
     QMetaType::Void,
@@ -117,7 +117,7 @@ void NetworkManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 3: _t->connectionError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 4: _t->availableGamesChanged(); break;
         case 5: _t->projectileDataReceived((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 6: _t->zandersuperfunctionDataRecieved((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 6: _t->zandersuperfunctionDataRecieved((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 7: _t->processPendingDatagrams(); break;
         case 8: _t->startBroadcasting(); break;
         case 9: _t->stopBroadcasting(); break;
@@ -168,7 +168,7 @@ void NetworkManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             }
         }
         {
-            using _t = void (NetworkManager::*)(QByteArray );
+            using _t = void (NetworkManager::*)(const QString & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&NetworkManager::zandersuperfunctionDataRecieved)) {
                 *result = 6;
                 return;
@@ -258,7 +258,7 @@ void NetworkManager::projectileDataReceived(QByteArray _t1)
 }
 
 // SIGNAL 6
-void NetworkManager::zandersuperfunctionDataRecieved(QByteArray _t1)
+void NetworkManager::zandersuperfunctionDataRecieved(const QString & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);

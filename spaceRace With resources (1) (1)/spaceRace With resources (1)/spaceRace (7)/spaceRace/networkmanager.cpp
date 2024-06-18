@@ -116,9 +116,10 @@ void NetworkManager::sendProjectileData(QString &projectileData) {
     qDebug() << "Sending projectile data to Player 2:" << projectileData;
 }
 
-void NetworkManager::sendzandersuperfunctionDatatootherplayer(QByteArray &data)
+void NetworkManager::sendzandersuperfunctionDatatootherplayer(const QString &data)
 {
-    udpSocket->writeDatagram(data, QHostAddress(recipientAddress), 12345);
+    QByteArray data2 = data.toUtf8();
+    udpSocket->writeDatagram(data2, QHostAddress(recipientAddress), 12345);
 }
 
 
@@ -131,27 +132,30 @@ void NetworkManager::processPendingDatagrams()
         QNetworkDatagram datagram = udpSocket->receiveDatagram();
         QString message = QString::fromUtf8(datagram.data());
         QString senderAddress = datagram.senderAddress().toString();
+         QByteArray receivedData = datagram.data();
 
         qDebug() << "Received datagram from" << senderAddress << ":" << message;
 
+        // Handle IPv6-mapped IPv4 addresses
+        QHostAddress address(senderAddress);
+        if (address.protocol() == QAbstractSocket::IPv6Protocol) {
+            // Convert IPv6-mapped IPv4 address to IPv4 address
+            address = QHostAddress(address.toIPv4Address());
+        }
+        QString correctedAddress = address.toString();
+
+        // Skip processing if the datagram is from one of the local IP addresses
+        if (localIPAddresses.contains(correctedAddress)) {
+            qDebug() << "Skipping datagram from local address" << correctedAddress;
+            continue;
+        }
+
         if (!connected) {
             if (message == "GAME_AVAILABLE") {
-                // Handle IPv6-mapped IPv4 addresses
                 qDebug() << "Handling GAME_AVAILABLE message";
-                QHostAddress address(senderAddress);
-                if (address.protocol() == QAbstractSocket::IPv6Protocol) {
-                    // Convert IPv6-mapped IPv4 address to IPv4 address
-                    address = QHostAddress(address.toIPv4Address());
-                }
-                QString correctedAddress = address.toString();
-                if (localIPAddresses.contains(correctedAddress)) {
-                    continue;
-                }
-
                 if (!availableGames.contains(correctedAddress)) {
                     availableGames.append(correctedAddress);
                     emit availableGamesChanged();
-                } else {
                 }
             } else if (message == "2HANDSHAKE_REQUEST") {
                 qDebug() << "Handling 2HANDSHAKE_REQUEST message";
@@ -172,14 +176,14 @@ void NetworkManager::processPendingDatagrams()
             } else if (message == "1HANDSHAKE_REJECTED") {
                 qDebug() << "Handling 1HANDSHAKE_REJECTED message";
                 emit handshakeRejected();
-        } else {
+            }} else {
+
                 if (message.contains("zandersuperfunctionDataRecieved")){
-                     QByteArray receivedData = datagram.data();
-                     emit zandersuperfunctionDataRecieved(receivedData);
+                    emit zandersuperfunctionDataRecieved(message);
                 }
-            qDebug() << "Unexpected message from" << senderAddress << ":" << message;
-            emit connectionError("Unexpected message from " + senderAddress);
+                qDebug() << "Unexpected message from" << senderAddress << ":" << message;
+                emit connectionError("Unexpected message from " + senderAddress);
+            }
         }
     }
-}
-}
+

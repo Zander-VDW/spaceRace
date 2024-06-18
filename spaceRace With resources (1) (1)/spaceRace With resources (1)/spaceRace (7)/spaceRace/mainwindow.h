@@ -51,7 +51,8 @@ public:
     QString mapSeed;
     QString hostMapGenerator();
 //    void receiveProjectileData();
-    void preparezandersuperfunctionDatatosendtherplayer(QString Log);
+    void preparezandersuperfunctionDatatosendtherplayer();
+    int screenWidth;
 
 
 
@@ -77,8 +78,10 @@ private slots:
         void onConnectionError(const QString &message);
     void handleAvailableGamesChanged();
     //void handleProjectileData(QByteArray data);
-    void getszandersuperfunctionDatafromotherplayer(QByteArray data);
 
+
+public slots:
+    void getszandersuperfunctionDatafromotherplayer(const QString &data);
 
 private:
         void saveScore();

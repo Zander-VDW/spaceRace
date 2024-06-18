@@ -46,6 +46,7 @@ private:
     QRectF slotRect2;
     QRectF slotRect3;
     QRectF slotRect4;
+    int logFinger;
 
 
 

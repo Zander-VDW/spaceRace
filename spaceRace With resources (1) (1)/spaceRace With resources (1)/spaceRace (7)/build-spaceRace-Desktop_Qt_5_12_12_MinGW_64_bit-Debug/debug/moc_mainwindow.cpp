@@ -98,7 +98,7 @@ static const uint qt_meta_data_MainWindow[] = {
       17,    0,  108,    2, 0x08 /* Private */,
       18,    1,  109,    2, 0x08 /* Private */,
       20,    0,  112,    2, 0x08 /* Private */,
-      21,    1,  113,    2, 0x08 /* Private */,
+      21,    1,  113,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -115,7 +115,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   19,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QByteArray,   22,
+    QMetaType::Void, QMetaType::QString,   22,
 
        0        // eod
 };
@@ -140,7 +140,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 11: _t->onHandshakeRejected(); break;
         case 12: _t->onConnectionError((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 13: _t->handleAvailableGamesChanged(); break;
-        case 14: _t->getszandersuperfunctionDatafromotherplayer((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 14: _t->getszandersuperfunctionDatafromotherplayer((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }

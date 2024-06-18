@@ -206,6 +206,8 @@ release/moc_networkmanager.cpp: ../spaceRace/networkmanager.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qsharedpointer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qhostaddress.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkinterface.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qbasictimer.h \
@@ -358,10 +360,12 @@ release/moc_mainwindow.cpp: ../spaceRace/mainwindow.h \
 		../spaceRace/progressbar.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QImage \
+		../spaceRace/projectile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QVector \
 		../spaceRace/mapfeature.h \
 		../spaceRace/enemy.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsObject \
-		../spaceRace/projectile.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qboxlayout.h \
@@ -402,6 +406,8 @@ release/moc_mainwindow.cpp: ../spaceRace/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qudpsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qabstractsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qhostaddress.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkinterface.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QStringList \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QMessageBox \
@@ -419,6 +425,7 @@ release/moc_mainwindow.cpp: ../spaceRace/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qlineedit.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextcursor.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QShowEvent \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/bin/moc.exe
 	C:\Qt\Qt5.12.12\5.12.12\mingw73_64\bin\moc.exe $(DEFINES) --include "C:/Users/Dell10th-Gen/Documents/GITHUB REPOS/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/build-spaceRace-Desktop_Qt_5_12_12_MinGW_64_bit-Debug/release/moc_predefs.h" -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/mkspecs/win32-g++ -I"C:/Users/Dell10th-Gen/Documents/GITHUB REPOS/spaceRace/spaceRace With resources (1) (1)/spaceRace With resources (1)/spaceRace (7)/spaceRace" -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtMultimedia -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtANGLE -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork -IC:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore -I. -IC:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.12/Tools/mingw730_64/x86_64-w64-mingw32/include ..\spaceRace\mainwindow.h -o release\moc_mainwindow.cpp
@@ -512,13 +519,17 @@ release/networkmanager.o: ../spaceRace/networkmanager.cpp ../spaceRace/networkma
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qsharedpointer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qsharedpointer_impl.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qhostaddress.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkinterface.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QStringList \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkDatagram \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkdatagram.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDataStream \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qdatastream.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\networkmanager.o ..\spaceRace\networkmanager.cpp
 
 release/enemy.o: ../spaceRace/enemy.cpp ../spaceRace/enemy.h \
@@ -662,7 +673,8 @@ release/enemy.o: ../spaceRace/enemy.cpp ../spaceRace/enemy.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsView \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qgraphicsview.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractscrollarea.h
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\enemy.o ..\spaceRace\enemy.cpp
 
 release/main.o: ../spaceRace/main.cpp C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QApplication \
@@ -814,12 +826,14 @@ release/main.o: ../spaceRace/main.cpp C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include
 		../spaceRace/progressbar.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QImage \
+		../spaceRace/projectile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QVector \
 		../spaceRace/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsPixmapItem \
 		../spaceRace/mapfeature.h \
 		../spaceRace/enemy.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsObject \
-		../spaceRace/projectile.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qboxlayout.h \
@@ -860,6 +874,8 @@ release/main.o: ../spaceRace/main.cpp C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qudpsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qabstractsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qhostaddress.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkinterface.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QStringList \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QMessageBox \
@@ -877,6 +893,7 @@ release/main.o: ../spaceRace/main.cpp C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qlineedit.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextcursor.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QShowEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QFontDatabase \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qfontdatabase.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QScreen \
@@ -1032,10 +1049,12 @@ release/mainwindow.o: ../spaceRace/mainwindow.cpp ../spaceRace/mainwindow.h \
 		../spaceRace/progressbar.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QImage \
+		../spaceRace/projectile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QVector \
 		../spaceRace/mapfeature.h \
 		../spaceRace/enemy.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsObject \
-		../spaceRace/projectile.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QDebug \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QHBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qboxlayout.h \
@@ -1076,6 +1095,8 @@ release/mainwindow.o: ../spaceRace/mainwindow.cpp ../spaceRace/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qudpsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qabstractsocket.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qhostaddress.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QNetworkInterface \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/qnetworkinterface.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QStringList \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QMessageBox \
@@ -1093,13 +1114,17 @@ release/mainwindow.o: ../spaceRace/mainwindow.cpp ../spaceRace/mainwindow.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qlineedit.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextcursor.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QShowEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QPixmap \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtNetwork/QHostAddress \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QGuiApplication \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qcoreapplication.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qguiapplication.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QGuiApplication \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QScreen \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qscreen.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QList \
@@ -1205,7 +1230,47 @@ release/mapfeature.o: ../spaceRace/mapfeature.cpp ../spaceRace/mapfeature.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qbrush.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qfontinfo.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qfont.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qfontmetrics.h
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qfontmetrics.h \
+		../spaceRace/enemy.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qbasictimer.h \
+		../spaceRace/shipAugment.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QString \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QStyleOptionGraphicsItem \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qstyleoption.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qevent.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qtouchdevice.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qvalidator.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/qicon.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qslider.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractslider.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qstyle.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qtabbar.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qtabwidget.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qrubberband.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QWidget \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsSceneDragDropEvent \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qgraphicssceneevent.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QMimeData \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qmimedata.h \
+		../spaceRace/progressbar.h \
+		../spaceRace/projectile.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mapfeature.o ..\spaceRace\mapfeature.cpp
 
 release/playership.o: ../spaceRace/playership.cpp ../spaceRace/playerShip.h \
@@ -1344,6 +1409,9 @@ release/playership.o: ../spaceRace/playership.cpp ../spaceRace/playerShip.h \
 		../spaceRace/progressbar.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QKeyEvent \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QImage \
+		../spaceRace/projectile.h \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QVector \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qmath.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qapplication.h \
@@ -1357,8 +1425,7 @@ release/playership.o: ../spaceRace/playership.cpp ../spaceRace/playerShip.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/QGraphicsView \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qgraphicsview.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qscrollarea.h \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
-		../spaceRace/projectile.h
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtWidgets/qabstractscrollarea.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\playership.o ..\spaceRace\playership.cpp
 
 release/progressbar.o: ../spaceRace/progressbar.cpp ../spaceRace/ProgressBar.h \
@@ -1601,7 +1668,9 @@ release/projectile.o: ../spaceRace/projectile.cpp ../spaceRace/projectile.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/qmath.h \
 		../spaceRace/playerShip.h \
 		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QKeyEvent \
-		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QObject \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtGui/QImage \
+		C:/Qt/Qt5.12.12/5.12.12/mingw73_64/include/QtCore/QVector
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\projectile.o ..\spaceRace\projectile.cpp
 
 release/shipaugment.o: ../spaceRace/shipaugment.cpp ../spaceRace/shipAugment.h \
